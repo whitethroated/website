@@ -1,0 +1,59 @@
+---
+import Site from '../../layouts/Site.astro';
+import GateBadge from '../../components/GateBadge.astro';
+import siteData from '../../data/site-data.json';
+
+const report = siteData.reports[0];
+const dataFile = report.dataFiles[0];
+---
+<Site
+  title="Report archive"
+  current="reports"
+  description="Published WhiteThroated benchmark reports with verdicts, gate status, errata, and raw data."
+>
+  <h1>Report archive</h1>
+  <p class="lede">
+    One entry per published report: verdict, gate status, errata, and pointers to raw data.
+    Gate failures stay visible beside wins; a <code>mixed</code> or <code>rejected</code> verdict
+    is never hidden behind a throughput figure.
+  </p>
+
+  <article class="report-entry" aria-labelledby="report-title">
+    <h2 id="report-title">{report.title}</h2>
+    <p class="meta">
+      Measured {report.provenance.measured} · <GateBadge status={report.gateStatus} />
+    </p>
+    <p><strong>Verdict.</strong> {report.verdict}</p>
+
+    <h3>Errata and caveats</h3>
+    <ul>
+      <li>
+        <strong>Socket-option erratum.</strong> Historical <code>tcp_nodelay=off</code> / override
+        <code>0</code> labels did not prove TCP_NODELAY was disabled: the old client skipped its
+        override while NIO enabled TCP_NODELAY by default, and its explicit <code>1</code> used the
+        wrong option level. Raw measurements are preserved; rebaseline with verified socket values
+        (report header; the companion correction report is not in this site's data pack).
+      </li>
+      <li>
+        <strong>Client event-loop distribution.</strong> The benchmark client requests four threads
+        but uses two loops; this harness limitation is held constant across the servers in this
+        matrix (report, Network experiment).
+      </li>
+      <li>
+        <strong>VM scope.</strong> Docker Desktop Linux VM results do not establish bare-metal
+        results; bare-metal Linux with a separate generator and an independent harness remains
+        necessary before generalizing (report, Tail-latency limits).
+      </li>
+    </ul>
+
+    <h3>Sources</h3>
+    <ul>
+      <li><a href="/reports/tier1-default-2026-10-18/">Full report (rendered)</a></li>
+      <li><a href="/reports/benchmark-tier1-default-2026-10-18.md">Full report (verbatim Markdown)</a></li>
+      <li>
+        <a href={`/data/${dataFile.path}`}><code>{dataFile.path}</code></a>
+        — 432 per-round samples, SHA-256 <code>{dataFile.sha256}</code>
+      </li>
+    </ul>
+  </article>
+</Site>

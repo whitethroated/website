@@ -1,0 +1,2844 @@
+{
+  "generatedFromCommit": "2b3493869803eaa8b3f78bc2bd26c86c5c8c1e8f",
+  "reportId": "tier1-default-2026-10-18",
+  "servers": {
+    "before-stock": "Old stock",
+    "before-tier1": "Old Tier 1",
+    "after-default": "Current default",
+    "after-stock": "Current forced stock",
+    "raw": "Raw NIO"
+  },
+  "routes": {
+    "root": "GET /",
+    "user-get": "GET /user/42",
+    "user-post": "POST /user",
+    "stream-known": "Known length",
+    "stream-chunked": "Chunked"
+  },
+  "mainColumns": [
+    "before-stock",
+    "before-tier1",
+    "after-default",
+    "raw"
+  ],
+  "streamColumns": [
+    "before-stock",
+    "after-stock",
+    "after-default"
+  ],
+  "connections": [
+    64,
+    256,
+    512
+  ],
+  "main": [
+    {
+      "route": "root",
+      "connections": 64,
+      "server": "before-stock",
+      "rps": {
+        "median": 203664,
+        "rounds": [
+          {
+            "round": 1,
+            "value": 204036
+          },
+          {
+            "round": 2,
+            "value": 186451
+          },
+          {
+            "round": 3,
+            "value": 205487
+          },
+          {
+            "round": 4,
+            "value": 203291
+          }
+        ],
+        "source": "Pilot report, Network experiment throughput table (medians of 4 runs); per-round values from tier1-default-2026-10-18.json"
+      },
+      "p99": {
+        "median": 673,
+        "rounds": [
+          {
+            "round": 1,
+            "value": 637.541
+          },
+          {
+            "round": 2,
+            "value": 692.875
+          },
+          {
+            "round": 3,
+            "value": 653.75
+          },
+          {
+            "round": 4,
+            "value": 895.75
+          }
+        ],
+        "source": "Pilot report, Network experiment p99 table (medians of 4 runs); per-round values from tier1-default-2026-10-18.json",
+        "unit": "microseconds"
+      }
+    },
+    {
+      "route": "root",
+      "connections": 64,
+      "server": "before-tier1",
+      "rps": {
+        "median": 202248,
+        "rounds": [
+          {
+            "round": 1,
+            "value": 200980
+          },
+          {
+            "round": 2,
+            "value": 169169
+          },
+          {
+            "round": 3,
+            "value": 205134
+          },
+          {
+            "round": 4,
+            "value": 203515
+          }
+        ],
+        "source": "Pilot report, Network experiment throughput table (medians of 4 runs); per-round values from tier1-default-2026-10-18.json"
+      },
+      "p99": {
+        "median": 863,
+        "rounds": [
+          {
+            "round": 1,
+            "value": 667.333
+          },
+          {
+            "round": 2,
+            "value": 2348
+          },
+          {
+            "round": 3,
+            "value": 723.833
+          },
+          {
+            "round": 4,
+            "value": 1001.417
+          }
+        ],
+        "source": "Pilot report, Network experiment p99 table (medians of 4 runs); per-round values from tier1-default-2026-10-18.json",
+        "unit": "microseconds"
+      }
+    },
+    {
+      "route": "root",
+      "connections": 64,
+      "server": "after-default",
+      "rps": {
+        "median": 199148,
+        "rounds": [
+          {
+            "round": 1,
+            "value": 197872
+          },
+          {
+            "round": 2,
+            "value": 195494
+          },
+          {
+            "round": 3,
+            "value": 209109
+          },
+          {
+            "round": 4,
+            "value": 200424
+          }
+        ],
+        "source": "Pilot report, Network experiment throughput table (medians of 4 runs); per-round values from tier1-default-2026-10-18.json"
+      },
+      "p99": {
+        "median": 764,
+        "rounds": [
+          {
+            "round": 1,
+            "value": 751.916
+          },
+          {
+            "round": 2,
+            "value": 775.708
+          },
+          {
+            "round": 3,
+            "value": 687.958
+          },
+          {
+            "round": 4,
+            "value": 1238.042
+          }
+        ],
+        "source": "Pilot report, Network experiment p99 table (medians of 4 runs); per-round values from tier1-default-2026-10-18.json",
+        "unit": "microseconds"
+      }
+    },
+    {
+      "route": "root",
+      "connections": 64,
+      "server": "raw",
+      "rps": {
+        "median": 196847,
+        "rounds": [
+          {
+            "round": 1,
+            "value": 191516
+          },
+          {
+            "round": 2,
+            "value": 202178
+          },
+          {
+            "round": 3,
+            "value": 188195
+          },
+          {
+            "round": 4,
+            "value": 208290
+          }
+        ],
+        "source": "Pilot report, Network experiment throughput table (medians of 4 runs); per-round values from tier1-default-2026-10-18.json"
+      },
+      "p99": {
+        "median": 729,
+        "rounds": [
+          {
+            "round": 1,
+            "value": 788.292
+          },
+          {
+            "round": 2,
+            "value": 2044.708
+          },
+          {
+            "round": 3,
+            "value": 670.375
+          },
+          {
+            "round": 4,
+            "value": 639.875
+          }
+        ],
+        "source": "Pilot report, Network experiment p99 table (medians of 4 runs); per-round values from tier1-default-2026-10-18.json",
+        "unit": "microseconds"
+      }
+    },
+    {
+      "route": "root",
+      "connections": 256,
+      "server": "before-stock",
+      "rps": {
+        "median": 206680,
+        "rounds": [
+          {
+            "round": 1,
+            "value": 214788
+          },
+          {
+            "round": 2,
+            "value": 198050
+          },
+          {
+            "round": 3,
+            "value": 209651
+          },
+          {
+            "round": 4,
+            "value": 203710
+          }
+        ],
+        "source": "Pilot report, Network experiment throughput table (medians of 4 runs); per-round values from tier1-default-2026-10-18.json"
+      },
+      "p99": {
+        "median": 2548,
+        "rounds": [
+          {
+            "round": 1,
+            "value": 3817.209
+          },
+          {
+            "round": 2,
+            "value": 2424.375
+          },
+          {
+            "round": 3,
+            "value": 2593
+          },
+          {
+            "round": 4,
+            "value": 2502.166
+          }
+        ],
+        "source": "Pilot report, Network experiment p99 table (medians of 4 runs); per-round values from tier1-default-2026-10-18.json",
+        "unit": "microseconds"
+      }
+    },
+    {
+      "route": "root",
+      "connections": 256,
+      "server": "before-tier1",
+      "rps": {
+        "median": 200972,
+        "rounds": [
+          {
+            "round": 1,
+            "value": 205745
+          },
+          {
+            "round": 2,
+            "value": 199831
+          },
+          {
+            "round": 3,
+            "value": 202113
+          },
+          {
+            "round": 4,
+            "value": 190757
+          }
+        ],
+        "source": "Pilot report, Network experiment throughput table (medians of 4 runs); per-round values from tier1-default-2026-10-18.json"
+      },
+      "p99": {
+        "median": 2929,
+        "rounds": [
+          {
+            "round": 1,
+            "value": 2544.459
+          },
+          {
+            "round": 2,
+            "value": 2915.417
+          },
+          {
+            "round": 3,
+            "value": 2942.917
+          },
+          {
+            "round": 4,
+            "value": 3388.083
+          }
+        ],
+        "source": "Pilot report, Network experiment p99 table (medians of 4 runs); per-round values from tier1-default-2026-10-18.json",
+        "unit": "microseconds"
+      }
+    },
+    {
+      "route": "root",
+      "connections": 256,
+      "server": "after-default",
+      "rps": {
+        "median": 195248,
+        "rounds": [
+          {
+            "round": 1,
+            "value": 200886
+          },
+          {
+            "round": 2,
+            "value": 195886
+          },
+          {
+            "round": 3,
+            "value": 189325
+          },
+          {
+            "round": 4,
+            "value": 194611
+          }
+        ],
+        "source": "Pilot report, Network experiment throughput table (medians of 4 runs); per-round values from tier1-default-2026-10-18.json"
+      },
+      "p99": {
+        "median": 2538,
+        "rounds": [
+          {
+            "round": 1,
+            "value": 3770.459
+          },
+          {
+            "round": 2,
+            "value": 2401.5
+          },
+          {
+            "round": 3,
+            "value": 2591.375
+          },
+          {
+            "round": 4,
+            "value": 2485.208
+          }
+        ],
+        "source": "Pilot report, Network experiment p99 table (medians of 4 runs); per-round values from tier1-default-2026-10-18.json",
+        "unit": "microseconds"
+      }
+    },
+    {
+      "route": "root",
+      "connections": 256,
+      "server": "raw",
+      "rps": {
+        "median": 205403,
+        "rounds": [
+          {
+            "round": 1,
+            "value": 205369
+          },
+          {
+            "round": 2,
+            "value": 206810
+          },
+          {
+            "round": 3,
+            "value": 190679
+          },
+          {
+            "round": 4,
+            "value": 205437
+          }
+        ],
+        "source": "Pilot report, Network experiment throughput table (medians of 4 runs); per-round values from tier1-default-2026-10-18.json"
+      },
+      "p99": {
+        "median": 2689,
+        "rounds": [
+          {
+            "round": 1,
+            "value": 2864.792
+          },
+          {
+            "round": 2,
+            "value": 2479.209
+          },
+          {
+            "round": 3,
+            "value": 2512.917
+          },
+          {
+            "round": 4,
+            "value": 6442.666
+          }
+        ],
+        "source": "Pilot report, Network experiment p99 table (medians of 4 runs); per-round values from tier1-default-2026-10-18.json",
+        "unit": "microseconds"
+      }
+    },
+    {
+      "route": "root",
+      "connections": 512,
+      "server": "before-stock",
+      "rps": {
+        "median": 187596,
+        "rounds": [
+          {
+            "round": 1,
+            "value": 189118
+          },
+          {
+            "round": 2,
+            "value": 204924
+          },
+          {
+            "round": 3,
+            "value": 186073
+          },
+          {
+            "round": 4,
+            "value": 167313
+          }
+        ],
+        "source": "Pilot report, Network experiment throughput table (medians of 4 runs); per-round values from tier1-default-2026-10-18.json"
+      },
+      "p99": {
+        "median": 4941,
+        "rounds": [
+          {
+            "round": 1,
+            "value": 5083.5
+          },
+          {
+            "round": 2,
+            "value": 4797.833
+          },
+          {
+            "round": 3,
+            "value": 5413.208
+          },
+          {
+            "round": 4,
+            "value": 4698.958
+          }
+        ],
+        "source": "Pilot report, Network experiment p99 table (medians of 4 runs); per-round values from tier1-default-2026-10-18.json",
+        "unit": "microseconds"
+      }
+    },
+    {
+      "route": "root",
+      "connections": 512,
+      "server": "before-tier1",
+      "rps": {
+        "median": 198518,
+        "rounds": [
+          {
+            "round": 1,
+            "value": 200475
+          },
+          {
+            "round": 2,
+            "value": 196560
+          },
+          {
+            "round": 3,
+            "value": 207766
+          },
+          {
+            "round": 4,
+            "value": 147670
+          }
+        ],
+        "source": "Pilot report, Network experiment throughput table (medians of 4 runs); per-round values from tier1-default-2026-10-18.json"
+      },
+      "p99": {
+        "median": 5202,
+        "rounds": [
+          {
+            "round": 1,
+            "value": 6181
+          },
+          {
+            "round": 2,
+            "value": 4222.458
+          },
+          {
+            "round": 3,
+            "value": 3489.291
+          },
+          {
+            "round": 4,
+            "value": 12055.958
+          }
+        ],
+        "source": "Pilot report, Network experiment p99 table (medians of 4 runs); per-round values from tier1-default-2026-10-18.json",
+        "unit": "microseconds"
+      }
+    },
+    {
+      "route": "root",
+      "connections": 512,
+      "server": "after-default",
+      "rps": {
+        "median": 188394,
+        "rounds": [
+          {
+            "round": 1,
+            "value": 171082
+          },
+          {
+            "round": 2,
+            "value": 180666
+          },
+          {
+            "round": 3,
+            "value": 204158
+          },
+          {
+            "round": 4,
+            "value": 196123
+          }
+        ],
+        "source": "Pilot report, Network experiment throughput table (medians of 4 runs); per-round values from tier1-default-2026-10-18.json"
+      },
+      "p99": {
+        "median": 5037,
+        "rounds": [
+          {
+            "round": 1,
+            "value": 4943
+          },
+          {
+            "round": 2,
+            "value": 5130.417
+          },
+          {
+            "round": 3,
+            "value": 4354.459
+          },
+          {
+            "round": 4,
+            "value": 5914.75
+          }
+        ],
+        "source": "Pilot report, Network experiment p99 table (medians of 4 runs); per-round values from tier1-default-2026-10-18.json",
+        "unit": "microseconds"
+      }
+    },
+    {
+      "route": "root",
+      "connections": 512,
+      "server": "raw",
+      "rps": {
+        "median": 203912,
+        "rounds": [
+          {
+            "round": 1,
+            "value": 203366
+          },
+          {
+            "round": 2,
+            "value": 173510
+          },
+          {
+            "round": 3,
+            "value": 207932
+          },
+          {
+            "round": 4,
+            "value": 204457
+          }
+        ],
+        "source": "Pilot report, Network experiment throughput table (medians of 4 runs); per-round values from tier1-default-2026-10-18.json"
+      },
+      "p99": {
+        "median": 6160,
+        "rounds": [
+          {
+            "round": 1,
+            "value": 6914.834
+          },
+          {
+            "round": 2,
+            "value": 5330.208
+          },
+          {
+            "round": 3,
+            "value": 5404.75
+          },
+          {
+            "round": 4,
+            "value": 13319.375
+          }
+        ],
+        "source": "Pilot report, Network experiment p99 table (medians of 4 runs); per-round values from tier1-default-2026-10-18.json",
+        "unit": "microseconds"
+      }
+    },
+    {
+      "route": "user-get",
+      "connections": 64,
+      "server": "before-stock",
+      "rps": {
+        "median": 172526,
+        "rounds": [
+          {
+            "round": 1,
+            "value": 173214
+          },
+          {
+            "round": 2,
+            "value": 169027
+          },
+          {
+            "round": 3,
+            "value": 171837
+          },
+          {
+            "round": 4,
+            "value": 184026
+          }
+        ],
+        "source": "Pilot report, Network experiment throughput table (medians of 4 runs); per-round values from tier1-default-2026-10-18.json"
+      },
+      "p99": {
+        "median": 801,
+        "rounds": [
+          {
+            "round": 1,
+            "value": 792.042
+          },
+          {
+            "round": 2,
+            "value": 767.166
+          },
+          {
+            "round": 3,
+            "value": 1251.458
+          },
+          {
+            "round": 4,
+            "value": 809.458
+          }
+        ],
+        "source": "Pilot report, Network experiment p99 table (medians of 4 runs); per-round values from tier1-default-2026-10-18.json",
+        "unit": "microseconds"
+      }
+    },
+    {
+      "route": "user-get",
+      "connections": 64,
+      "server": "before-tier1",
+      "rps": {
+        "median": 201150,
+        "rounds": [
+          {
+            "round": 1,
+            "value": 206295
+          },
+          {
+            "round": 2,
+            "value": 200997
+          },
+          {
+            "round": 3,
+            "value": 201302
+          },
+          {
+            "round": 4,
+            "value": 188316
+          }
+        ],
+        "source": "Pilot report, Network experiment throughput table (medians of 4 runs); per-round values from tier1-default-2026-10-18.json"
+      },
+      "p99": {
+        "median": 695,
+        "rounds": [
+          {
+            "round": 1,
+            "value": 671.916
+          },
+          {
+            "round": 2,
+            "value": 731.167
+          },
+          {
+            "round": 3,
+            "value": 682.209
+          },
+          {
+            "round": 4,
+            "value": 707.375
+          }
+        ],
+        "source": "Pilot report, Network experiment p99 table (medians of 4 runs); per-round values from tier1-default-2026-10-18.json",
+        "unit": "microseconds"
+      }
+    },
+    {
+      "route": "user-get",
+      "connections": 64,
+      "server": "after-default",
+      "rps": {
+        "median": 203708,
+        "rounds": [
+          {
+            "round": 1,
+            "value": 210487
+          },
+          {
+            "round": 2,
+            "value": 194298
+          },
+          {
+            "round": 3,
+            "value": 204908
+          },
+          {
+            "round": 4,
+            "value": 202507
+          }
+        ],
+        "source": "Pilot report, Network experiment throughput table (medians of 4 runs); per-round values from tier1-default-2026-10-18.json"
+      },
+      "p99": {
+        "median": 727,
+        "rounds": [
+          {
+            "round": 1,
+            "value": 647
+          },
+          {
+            "round": 2,
+            "value": 748.833
+          },
+          {
+            "round": 3,
+            "value": 1065.5
+          },
+          {
+            "round": 4,
+            "value": 706.125
+          }
+        ],
+        "source": "Pilot report, Network experiment p99 table (medians of 4 runs); per-round values from tier1-default-2026-10-18.json",
+        "unit": "microseconds"
+      }
+    },
+    {
+      "route": "user-get",
+      "connections": 64,
+      "server": "raw",
+      "rps": {
+        "median": 195782,
+        "rounds": [
+          {
+            "round": 1,
+            "value": 195542
+          },
+          {
+            "round": 2,
+            "value": 196022
+          },
+          {
+            "round": 3,
+            "value": 187679
+          },
+          {
+            "round": 4,
+            "value": 197537
+          }
+        ],
+        "source": "Pilot report, Network experiment throughput table (medians of 4 runs); per-round values from tier1-default-2026-10-18.json"
+      },
+      "p99": {
+        "median": 755,
+        "rounds": [
+          {
+            "round": 1,
+            "value": 699.541
+          },
+          {
+            "round": 2,
+            "value": 752.375
+          },
+          {
+            "round": 3,
+            "value": 756.667
+          },
+          {
+            "round": 4,
+            "value": 924.875
+          }
+        ],
+        "source": "Pilot report, Network experiment p99 table (medians of 4 runs); per-round values from tier1-default-2026-10-18.json",
+        "unit": "microseconds"
+      }
+    },
+    {
+      "route": "user-get",
+      "connections": 256,
+      "server": "before-stock",
+      "rps": {
+        "median": 177696,
+        "rounds": [
+          {
+            "round": 1,
+            "value": 177228
+          },
+          {
+            "round": 2,
+            "value": 178163
+          },
+          {
+            "round": 3,
+            "value": 178771
+          },
+          {
+            "round": 4,
+            "value": 175832
+          }
+        ],
+        "source": "Pilot report, Network experiment throughput table (medians of 4 runs); per-round values from tier1-default-2026-10-18.json"
+      },
+      "p99": {
+        "median": 2851,
+        "rounds": [
+          {
+            "round": 1,
+            "value": 2845.333
+          },
+          {
+            "round": 2,
+            "value": 2787.542
+          },
+          {
+            "round": 3,
+            "value": 3020.125
+          },
+          {
+            "round": 4,
+            "value": 2857.541
+          }
+        ],
+        "source": "Pilot report, Network experiment p99 table (medians of 4 runs); per-round values from tier1-default-2026-10-18.json",
+        "unit": "microseconds"
+      }
+    },
+    {
+      "route": "user-get",
+      "connections": 256,
+      "server": "before-tier1",
+      "rps": {
+        "median": 201876,
+        "rounds": [
+          {
+            "round": 1,
+            "value": 190097
+          },
+          {
+            "round": 2,
+            "value": 197978
+          },
+          {
+            "round": 3,
+            "value": 205773
+          },
+          {
+            "round": 4,
+            "value": 205912
+          }
+        ],
+        "source": "Pilot report, Network experiment throughput table (medians of 4 runs); per-round values from tier1-default-2026-10-18.json"
+      },
+      "p99": {
+        "median": 2698,
+        "rounds": [
+          {
+            "round": 1,
+            "value": 2836.333
+          },
+          {
+            "round": 2,
+            "value": 2894.166
+          },
+          {
+            "round": 3,
+            "value": 2559.791
+          },
+          {
+            "round": 4,
+            "value": 2421.542
+          }
+        ],
+        "source": "Pilot report, Network experiment p99 table (medians of 4 runs); per-round values from tier1-default-2026-10-18.json",
+        "unit": "microseconds"
+      }
+    },
+    {
+      "route": "user-get",
+      "connections": 256,
+      "server": "after-default",
+      "rps": {
+        "median": 195313,
+        "rounds": [
+          {
+            "round": 1,
+            "value": 187453
+          },
+          {
+            "round": 2,
+            "value": 185015
+          },
+          {
+            "round": 3,
+            "value": 203173
+          },
+          {
+            "round": 4,
+            "value": 208239
+          }
+        ],
+        "source": "Pilot report, Network experiment throughput table (medians of 4 runs); per-round values from tier1-default-2026-10-18.json"
+      },
+      "p99": {
+        "median": 2631,
+        "rounds": [
+          {
+            "round": 1,
+            "value": 11165.834
+          },
+          {
+            "round": 2,
+            "value": 2589.416
+          },
+          {
+            "round": 3,
+            "value": 2673.5
+          },
+          {
+            "round": 4,
+            "value": 2326.084
+          }
+        ],
+        "source": "Pilot report, Network experiment p99 table (medians of 4 runs); per-round values from tier1-default-2026-10-18.json",
+        "unit": "microseconds"
+      }
+    },
+    {
+      "route": "user-get",
+      "connections": 256,
+      "server": "raw",
+      "rps": {
+        "median": 185049,
+        "rounds": [
+          {
+            "round": 1,
+            "value": 161299
+          },
+          {
+            "round": 2,
+            "value": 186576
+          },
+          {
+            "round": 3,
+            "value": 183522
+          },
+          {
+            "round": 4,
+            "value": 188730
+          }
+        ],
+        "source": "Pilot report, Network experiment throughput table (medians of 4 runs); per-round values from tier1-default-2026-10-18.json"
+      },
+      "p99": {
+        "median": 2661,
+        "rounds": [
+          {
+            "round": 1,
+            "value": 2628.042
+          },
+          {
+            "round": 2,
+            "value": 2632.541
+          },
+          {
+            "round": 3,
+            "value": 3900.375
+          },
+          {
+            "round": 4,
+            "value": 2689.833
+          }
+        ],
+        "source": "Pilot report, Network experiment p99 table (medians of 4 runs); per-round values from tier1-default-2026-10-18.json",
+        "unit": "microseconds"
+      }
+    },
+    {
+      "route": "user-get",
+      "connections": 512,
+      "server": "before-stock",
+      "rps": {
+        "median": 175212,
+        "rounds": [
+          {
+            "round": 1,
+            "value": 171003
+          },
+          {
+            "round": 2,
+            "value": 177528
+          },
+          {
+            "round": 3,
+            "value": 177387
+          },
+          {
+            "round": 4,
+            "value": 173038
+          }
+        ],
+        "source": "Pilot report, Network experiment throughput table (medians of 4 runs); per-round values from tier1-default-2026-10-18.json"
+      },
+      "p99": {
+        "median": 6898,
+        "rounds": [
+          {
+            "round": 1,
+            "value": 6632.208
+          },
+          {
+            "round": 2,
+            "value": 10043.25
+          },
+          {
+            "round": 3,
+            "value": 7162.875
+          },
+          {
+            "round": 4,
+            "value": 5511.75
+          }
+        ],
+        "source": "Pilot report, Network experiment p99 table (medians of 4 runs); per-round values from tier1-default-2026-10-18.json",
+        "unit": "microseconds"
+      }
+    },
+    {
+      "route": "user-get",
+      "connections": 512,
+      "server": "before-tier1",
+      "rps": {
+        "median": 189378,
+        "rounds": [
+          {
+            "round": 1,
+            "value": 196728
+          },
+          {
+            "round": 2,
+            "value": 176349
+          },
+          {
+            "round": 3,
+            "value": 202058
+          },
+          {
+            "round": 4,
+            "value": 182029
+          }
+        ],
+        "source": "Pilot report, Network experiment throughput table (medians of 4 runs); per-round values from tier1-default-2026-10-18.json"
+      },
+      "p99": {
+        "median": 5053,
+        "rounds": [
+          {
+            "round": 1,
+            "value": 5095.666
+          },
+          {
+            "round": 2,
+            "value": 5174.334
+          },
+          {
+            "round": 3,
+            "value": 4553.75
+          },
+          {
+            "round": 4,
+            "value": 5011.292
+          }
+        ],
+        "source": "Pilot report, Network experiment p99 table (medians of 4 runs); per-round values from tier1-default-2026-10-18.json",
+        "unit": "microseconds"
+      }
+    },
+    {
+      "route": "user-get",
+      "connections": 512,
+      "server": "after-default",
+      "rps": {
+        "median": 196387,
+        "rounds": [
+          {
+            "round": 1,
+            "value": 202152
+          },
+          {
+            "round": 2,
+            "value": 170208
+          },
+          {
+            "round": 3,
+            "value": 211545
+          },
+          {
+            "round": 4,
+            "value": 190622
+          }
+        ],
+        "source": "Pilot report, Network experiment throughput table (medians of 4 runs); per-round values from tier1-default-2026-10-18.json"
+      },
+      "p99": {
+        "median": 5028,
+        "rounds": [
+          {
+            "round": 1,
+            "value": 5433.792
+          },
+          {
+            "round": 2,
+            "value": 35958.875
+          },
+          {
+            "round": 3,
+            "value": 4024.541
+          },
+          {
+            "round": 4,
+            "value": 4622.292
+          }
+        ],
+        "source": "Pilot report, Network experiment p99 table (medians of 4 runs); per-round values from tier1-default-2026-10-18.json",
+        "unit": "microseconds"
+      }
+    },
+    {
+      "route": "user-get",
+      "connections": 512,
+      "server": "raw",
+      "rps": {
+        "median": 186685,
+        "rounds": [
+          {
+            "round": 1,
+            "value": 182020
+          },
+          {
+            "round": 2,
+            "value": 183226
+          },
+          {
+            "round": 3,
+            "value": 195675
+          },
+          {
+            "round": 4,
+            "value": 190144
+          }
+        ],
+        "source": "Pilot report, Network experiment throughput table (medians of 4 runs); per-round values from tier1-default-2026-10-18.json"
+      },
+      "p99": {
+        "median": 5940,
+        "rounds": [
+          {
+            "round": 1,
+            "value": 5302.834
+          },
+          {
+            "round": 2,
+            "value": 5131.833
+          },
+          {
+            "round": 3,
+            "value": 6577.833
+          },
+          {
+            "round": 4,
+            "value": 8617.042
+          }
+        ],
+        "source": "Pilot report, Network experiment p99 table (medians of 4 runs); per-round values from tier1-default-2026-10-18.json",
+        "unit": "microseconds"
+      }
+    },
+    {
+      "route": "user-post",
+      "connections": 64,
+      "server": "before-stock",
+      "rps": {
+        "median": 192266,
+        "rounds": [
+          {
+            "round": 1,
+            "value": 159134
+          },
+          {
+            "round": 2,
+            "value": 193171
+          },
+          {
+            "round": 3,
+            "value": 191815
+          },
+          {
+            "round": 4,
+            "value": 192718
+          }
+        ],
+        "source": "Pilot report, Network experiment throughput table (medians of 4 runs); per-round values from tier1-default-2026-10-18.json"
+      },
+      "p99": {
+        "median": 715,
+        "rounds": [
+          {
+            "round": 1,
+            "value": 815.375
+          },
+          {
+            "round": 2,
+            "value": 730.958
+          },
+          {
+            "round": 3,
+            "value": 698.083
+          },
+          {
+            "round": 4,
+            "value": 674
+          }
+        ],
+        "source": "Pilot report, Network experiment p99 table (medians of 4 runs); per-round values from tier1-default-2026-10-18.json",
+        "unit": "microseconds"
+      }
+    },
+    {
+      "route": "user-post",
+      "connections": 64,
+      "server": "before-tier1",
+      "rps": {
+        "median": 191226,
+        "rounds": [
+          {
+            "round": 1,
+            "value": 197109
+          },
+          {
+            "round": 2,
+            "value": 187323
+          },
+          {
+            "round": 3,
+            "value": 190618
+          },
+          {
+            "round": 4,
+            "value": 191835
+          }
+        ],
+        "source": "Pilot report, Network experiment throughput table (medians of 4 runs); per-round values from tier1-default-2026-10-18.json"
+      },
+      "p99": {
+        "median": 709,
+        "rounds": [
+          {
+            "round": 1,
+            "value": 732.75
+          },
+          {
+            "round": 2,
+            "value": 698.584
+          },
+          {
+            "round": 3,
+            "value": 706.416
+          },
+          {
+            "round": 4,
+            "value": 711.875
+          }
+        ],
+        "source": "Pilot report, Network experiment p99 table (medians of 4 runs); per-round values from tier1-default-2026-10-18.json",
+        "unit": "microseconds"
+      }
+    },
+    {
+      "route": "user-post",
+      "connections": 64,
+      "server": "after-default",
+      "rps": {
+        "median": 188956,
+        "rounds": [
+          {
+            "round": 1,
+            "value": 176315
+          },
+          {
+            "round": 2,
+            "value": 189624
+          },
+          {
+            "round": 3,
+            "value": 188289
+          },
+          {
+            "round": 4,
+            "value": 189753
+          }
+        ],
+        "source": "Pilot report, Network experiment throughput table (medians of 4 runs); per-round values from tier1-default-2026-10-18.json"
+      },
+      "p99": {
+        "median": 788,
+        "rounds": [
+          {
+            "round": 1,
+            "value": 823.875
+          },
+          {
+            "round": 2,
+            "value": 751.542
+          },
+          {
+            "round": 3,
+            "value": 1388.833
+          },
+          {
+            "round": 4,
+            "value": 727.792
+          }
+        ],
+        "source": "Pilot report, Network experiment p99 table (medians of 4 runs); per-round values from tier1-default-2026-10-18.json",
+        "unit": "microseconds"
+      }
+    },
+    {
+      "route": "user-post",
+      "connections": 64,
+      "server": "raw",
+      "rps": {
+        "median": 194428,
+        "rounds": [
+          {
+            "round": 1,
+            "value": 190696
+          },
+          {
+            "round": 2,
+            "value": 198371
+          },
+          {
+            "round": 3,
+            "value": 188358
+          },
+          {
+            "round": 4,
+            "value": 198161
+          }
+        ],
+        "source": "Pilot report, Network experiment throughput table (medians of 4 runs); per-round values from tier1-default-2026-10-18.json"
+      },
+      "p99": {
+        "median": 700,
+        "rounds": [
+          {
+            "round": 1,
+            "value": 704.333
+          },
+          {
+            "round": 2,
+            "value": 752.917
+          },
+          {
+            "round": 3,
+            "value": 696.25
+          },
+          {
+            "round": 4,
+            "value": 681.334
+          }
+        ],
+        "source": "Pilot report, Network experiment p99 table (medians of 4 runs); per-round values from tier1-default-2026-10-18.json",
+        "unit": "microseconds"
+      }
+    },
+    {
+      "route": "user-post",
+      "connections": 256,
+      "server": "before-stock",
+      "rps": {
+        "median": 190680,
+        "rounds": [
+          {
+            "round": 1,
+            "value": 191841
+          },
+          {
+            "round": 2,
+            "value": 164988
+          },
+          {
+            "round": 3,
+            "value": 189520
+          },
+          {
+            "round": 4,
+            "value": 192798
+          }
+        ],
+        "source": "Pilot report, Network experiment throughput table (medians of 4 runs); per-round values from tier1-default-2026-10-18.json"
+      },
+      "p99": {
+        "median": 2638,
+        "rounds": [
+          {
+            "round": 1,
+            "value": 2614.75
+          },
+          {
+            "round": 2,
+            "value": 3201.042
+          },
+          {
+            "round": 3,
+            "value": 2661.209
+          },
+          {
+            "round": 4,
+            "value": 2325
+          }
+        ],
+        "source": "Pilot report, Network experiment p99 table (medians of 4 runs); per-round values from tier1-default-2026-10-18.json",
+        "unit": "microseconds"
+      }
+    },
+    {
+      "route": "user-post",
+      "connections": 256,
+      "server": "before-tier1",
+      "rps": {
+        "median": 187680,
+        "rounds": [
+          {
+            "round": 1,
+            "value": 182453
+          },
+          {
+            "round": 2,
+            "value": 193375
+          },
+          {
+            "round": 3,
+            "value": 192908
+          },
+          {
+            "round": 4,
+            "value": 179130
+          }
+        ],
+        "source": "Pilot report, Network experiment throughput table (medians of 4 runs); per-round values from tier1-default-2026-10-18.json"
+      },
+      "p99": {
+        "median": 2392,
+        "rounds": [
+          {
+            "round": 1,
+            "value": 2235
+          },
+          {
+            "round": 2,
+            "value": 2697.584
+          },
+          {
+            "round": 3,
+            "value": 2549.417
+          },
+          {
+            "round": 4,
+            "value": 2199
+          }
+        ],
+        "source": "Pilot report, Network experiment p99 table (medians of 4 runs); per-round values from tier1-default-2026-10-18.json",
+        "unit": "microseconds"
+      }
+    },
+    {
+      "route": "user-post",
+      "connections": 256,
+      "server": "after-default",
+      "rps": {
+        "median": 178070,
+        "rounds": [
+          {
+            "round": 1,
+            "value": 179015
+          },
+          {
+            "round": 2,
+            "value": 192342
+          },
+          {
+            "round": 3,
+            "value": 165286
+          },
+          {
+            "round": 4,
+            "value": 177124
+          }
+        ],
+        "source": "Pilot report, Network experiment throughput table (medians of 4 runs); per-round values from tier1-default-2026-10-18.json"
+      },
+      "p99": {
+        "median": 2448,
+        "rounds": [
+          {
+            "round": 1,
+            "value": 1821.916
+          },
+          {
+            "round": 2,
+            "value": 2023.208
+          },
+          {
+            "round": 3,
+            "value": 2872.459
+          },
+          {
+            "round": 4,
+            "value": 10172.459
+          }
+        ],
+        "source": "Pilot report, Network experiment p99 table (medians of 4 runs); per-round values from tier1-default-2026-10-18.json",
+        "unit": "microseconds"
+      }
+    },
+    {
+      "route": "user-post",
+      "connections": 256,
+      "server": "raw",
+      "rps": {
+        "median": 192308,
+        "rounds": [
+          {
+            "round": 1,
+            "value": 200266
+          },
+          {
+            "round": 2,
+            "value": 167685
+          },
+          {
+            "round": 3,
+            "value": 188857
+          },
+          {
+            "round": 4,
+            "value": 195760
+          }
+        ],
+        "source": "Pilot report, Network experiment throughput table (medians of 4 runs); per-round values from tier1-default-2026-10-18.json"
+      },
+      "p99": {
+        "median": 2964,
+        "rounds": [
+          {
+            "round": 1,
+            "value": 2828.584
+          },
+          {
+            "round": 2,
+            "value": 3099.625
+          },
+          {
+            "round": 3,
+            "value": 9039.833
+          },
+          {
+            "round": 4,
+            "value": 2437.167
+          }
+        ],
+        "source": "Pilot report, Network experiment p99 table (medians of 4 runs); per-round values from tier1-default-2026-10-18.json",
+        "unit": "microseconds"
+      }
+    },
+    {
+      "route": "user-post",
+      "connections": 512,
+      "server": "before-stock",
+      "rps": {
+        "median": 184685,
+        "rounds": [
+          {
+            "round": 1,
+            "value": 185645
+          },
+          {
+            "round": 2,
+            "value": 183725
+          },
+          {
+            "round": 3,
+            "value": 177534
+          },
+          {
+            "round": 4,
+            "value": 190235
+          }
+        ],
+        "source": "Pilot report, Network experiment throughput table (medians of 4 runs); per-round values from tier1-default-2026-10-18.json"
+      },
+      "p99": {
+        "median": 5734,
+        "rounds": [
+          {
+            "round": 1,
+            "value": 6120.375
+          },
+          {
+            "round": 2,
+            "value": 5471.75
+          },
+          {
+            "round": 3,
+            "value": 5337.5
+          },
+          {
+            "round": 4,
+            "value": 5995.583
+          }
+        ],
+        "source": "Pilot report, Network experiment p99 table (medians of 4 runs); per-round values from tier1-default-2026-10-18.json",
+        "unit": "microseconds"
+      }
+    },
+    {
+      "route": "user-post",
+      "connections": 512,
+      "server": "before-tier1",
+      "rps": {
+        "median": 183616,
+        "rounds": [
+          {
+            "round": 1,
+            "value": 182759
+          },
+          {
+            "round": 2,
+            "value": 190416
+          },
+          {
+            "round": 3,
+            "value": 173853
+          },
+          {
+            "round": 4,
+            "value": 184474
+          }
+        ],
+        "source": "Pilot report, Network experiment throughput table (medians of 4 runs); per-round values from tier1-default-2026-10-18.json"
+      },
+      "p99": {
+        "median": 3628,
+        "rounds": [
+          {
+            "round": 1,
+            "value": 3421.708
+          },
+          {
+            "round": 2,
+            "value": 15516.166
+          },
+          {
+            "round": 3,
+            "value": 3809.083
+          },
+          {
+            "round": 4,
+            "value": 3446.959
+          }
+        ],
+        "source": "Pilot report, Network experiment p99 table (medians of 4 runs); per-round values from tier1-default-2026-10-18.json",
+        "unit": "microseconds"
+      }
+    },
+    {
+      "route": "user-post",
+      "connections": 512,
+      "server": "after-default",
+      "rps": {
+        "median": 183238,
+        "rounds": [
+          {
+            "round": 1,
+            "value": 179294
+          },
+          {
+            "round": 2,
+            "value": 187115
+          },
+          {
+            "round": 3,
+            "value": 179361
+          },
+          {
+            "round": 4,
+            "value": 194318
+          }
+        ],
+        "source": "Pilot report, Network experiment throughput table (medians of 4 runs); per-round values from tier1-default-2026-10-18.json"
+      },
+      "p99": {
+        "median": 5175,
+        "rounds": [
+          {
+            "round": 1,
+            "value": 5908.709
+          },
+          {
+            "round": 2,
+            "value": 4933.5
+          },
+          {
+            "round": 3,
+            "value": 3385.584
+          },
+          {
+            "round": 4,
+            "value": 5416.25
+          }
+        ],
+        "source": "Pilot report, Network experiment p99 table (medians of 4 runs); per-round values from tier1-default-2026-10-18.json",
+        "unit": "microseconds"
+      }
+    },
+    {
+      "route": "user-post",
+      "connections": 512,
+      "server": "raw",
+      "rps": {
+        "median": 183930,
+        "rounds": [
+          {
+            "round": 1,
+            "value": 173912
+          },
+          {
+            "round": 2,
+            "value": 170622
+          },
+          {
+            "round": 3,
+            "value": 193947
+          },
+          {
+            "round": 4,
+            "value": 205311
+          }
+        ],
+        "source": "Pilot report, Network experiment throughput table (medians of 4 runs); per-round values from tier1-default-2026-10-18.json"
+      },
+      "p99": {
+        "median": 5328,
+        "rounds": [
+          {
+            "round": 1,
+            "value": 5683.625
+          },
+          {
+            "round": 2,
+            "value": 4972.209
+          },
+          {
+            "round": 3,
+            "value": 5975.625
+          },
+          {
+            "round": 4,
+            "value": 4559
+          }
+        ],
+        "source": "Pilot report, Network experiment p99 table (medians of 4 runs); per-round values from tier1-default-2026-10-18.json",
+        "unit": "microseconds"
+      }
+    }
+  ],
+  "streams": [
+    {
+      "route": "stream-known",
+      "connections": 64,
+      "server": "before-stock",
+      "rps": {
+        "median": 127650,
+        "rounds": [
+          {
+            "round": 1,
+            "value": 129433
+          },
+          {
+            "round": 2,
+            "value": 132298
+          },
+          {
+            "round": 3,
+            "value": 125810
+          },
+          {
+            "round": 4,
+            "value": 125868
+          }
+        ],
+        "source": "Pilot report, Network experiment stream table (medians of 4 runs); per-round values from tier1-default-2026-10-18.json"
+      },
+      "p99": {
+        "median": 1284,
+        "rounds": [
+          {
+            "round": 1,
+            "value": 966
+          },
+          {
+            "round": 2,
+            "value": 1020.292
+          },
+          {
+            "round": 3,
+            "value": 2140.75
+          },
+          {
+            "round": 4,
+            "value": 1547.542
+          }
+        ],
+        "source": "Pilot report, Network experiment stream table (medians of 4 runs); per-round values from tier1-default-2026-10-18.json",
+        "unit": "microseconds"
+      }
+    },
+    {
+      "route": "stream-known",
+      "connections": 64,
+      "server": "after-stock",
+      "rps": {
+        "median": 120894,
+        "rounds": [
+          {
+            "round": 1,
+            "value": 126794
+          },
+          {
+            "round": 2,
+            "value": 130758
+          },
+          {
+            "round": 3,
+            "value": 114606
+          },
+          {
+            "round": 4,
+            "value": 114993
+          }
+        ],
+        "source": "Pilot report, Network experiment stream table (medians of 4 runs); per-round values from tier1-default-2026-10-18.json"
+      },
+      "p99": {
+        "median": 1049,
+        "rounds": [
+          {
+            "round": 1,
+            "value": 1141.25
+          },
+          {
+            "round": 2,
+            "value": 996.208
+          },
+          {
+            "round": 3,
+            "value": 1091.333
+          },
+          {
+            "round": 4,
+            "value": 1007.25
+          }
+        ],
+        "source": "Pilot report, Network experiment stream table (medians of 4 runs); per-round values from tier1-default-2026-10-18.json",
+        "unit": "microseconds"
+      }
+    },
+    {
+      "route": "stream-known",
+      "connections": 64,
+      "server": "after-default",
+      "rps": {
+        "median": 141240,
+        "rounds": [
+          {
+            "round": 1,
+            "value": 142342
+          },
+          {
+            "round": 2,
+            "value": 133432
+          },
+          {
+            "round": 3,
+            "value": 142819
+          },
+          {
+            "round": 4,
+            "value": 140139
+          }
+        ],
+        "source": "Pilot report, Network experiment stream table (medians of 4 runs); per-round values from tier1-default-2026-10-18.json"
+      },
+      "p99": {
+        "median": 938,
+        "rounds": [
+          {
+            "round": 1,
+            "value": 936.542
+          },
+          {
+            "round": 2,
+            "value": 998.792
+          },
+          {
+            "round": 3,
+            "value": 860.291
+          },
+          {
+            "round": 4,
+            "value": 939
+          }
+        ],
+        "source": "Pilot report, Network experiment stream table (medians of 4 runs); per-round values from tier1-default-2026-10-18.json",
+        "unit": "microseconds"
+      }
+    },
+    {
+      "route": "stream-known",
+      "connections": 256,
+      "server": "before-stock",
+      "rps": {
+        "median": 130528,
+        "rounds": [
+          {
+            "round": 1,
+            "value": 129616
+          },
+          {
+            "round": 2,
+            "value": 123238
+          },
+          {
+            "round": 3,
+            "value": 132171
+          },
+          {
+            "round": 4,
+            "value": 131441
+          }
+        ],
+        "source": "Pilot report, Network experiment stream table (medians of 4 runs); per-round values from tier1-default-2026-10-18.json"
+      },
+      "p99": {
+        "median": 3020,
+        "rounds": [
+          {
+            "round": 1,
+            "value": 2563.083
+          },
+          {
+            "round": 2,
+            "value": 3476.417
+          },
+          {
+            "round": 3,
+            "value": 2129.166
+          },
+          {
+            "round": 4,
+            "value": 3935.667
+          }
+        ],
+        "source": "Pilot report, Network experiment stream table (medians of 4 runs); per-round values from tier1-default-2026-10-18.json",
+        "unit": "microseconds"
+      }
+    },
+    {
+      "route": "stream-known",
+      "connections": 256,
+      "server": "after-stock",
+      "rps": {
+        "median": 128141,
+        "rounds": [
+          {
+            "round": 1,
+            "value": 129359
+          },
+          {
+            "round": 2,
+            "value": 126923
+          },
+          {
+            "round": 3,
+            "value": 126513
+          },
+          {
+            "round": 4,
+            "value": 130426
+          }
+        ],
+        "source": "Pilot report, Network experiment stream table (medians of 4 runs); per-round values from tier1-default-2026-10-18.json"
+      },
+      "p99": {
+        "median": 3537,
+        "rounds": [
+          {
+            "round": 1,
+            "value": 2768
+          },
+          {
+            "round": 2,
+            "value": 3532.5
+          },
+          {
+            "round": 3,
+            "value": 3540.75
+          },
+          {
+            "round": 4,
+            "value": 3731.541
+          }
+        ],
+        "source": "Pilot report, Network experiment stream table (medians of 4 runs); per-round values from tier1-default-2026-10-18.json",
+        "unit": "microseconds"
+      }
+    },
+    {
+      "route": "stream-known",
+      "connections": 256,
+      "server": "after-default",
+      "rps": {
+        "median": 141240,
+        "rounds": [
+          {
+            "round": 1,
+            "value": 142577
+          },
+          {
+            "round": 2,
+            "value": 129372
+          },
+          {
+            "round": 3,
+            "value": 143604
+          },
+          {
+            "round": 4,
+            "value": 139902
+          }
+        ],
+        "source": "Pilot report, Network experiment stream table (medians of 4 runs); per-round values from tier1-default-2026-10-18.json"
+      },
+      "p99": {
+        "median": 3193,
+        "rounds": [
+          {
+            "round": 1,
+            "value": 3114.792
+          },
+          {
+            "round": 2,
+            "value": 3271.792
+          },
+          {
+            "round": 3,
+            "value": 2033.125
+          },
+          {
+            "round": 4,
+            "value": 3405.459
+          }
+        ],
+        "source": "Pilot report, Network experiment stream table (medians of 4 runs); per-round values from tier1-default-2026-10-18.json",
+        "unit": "microseconds"
+      }
+    },
+    {
+      "route": "stream-known",
+      "connections": 512,
+      "server": "before-stock",
+      "rps": {
+        "median": 127944,
+        "rounds": [
+          {
+            "round": 1,
+            "value": 126420
+          },
+          {
+            "round": 2,
+            "value": 128086
+          },
+          {
+            "round": 3,
+            "value": 128925
+          },
+          {
+            "round": 4,
+            "value": 127802
+          }
+        ],
+        "source": "Pilot report, Network experiment stream table (medians of 4 runs); per-round values from tier1-default-2026-10-18.json"
+      },
+      "p99": {
+        "median": 5001,
+        "rounds": [
+          {
+            "round": 1,
+            "value": 5344.584
+          },
+          {
+            "round": 2,
+            "value": 16762.083
+          },
+          {
+            "round": 3,
+            "value": 4363.209
+          },
+          {
+            "round": 4,
+            "value": 4657.125
+          }
+        ],
+        "source": "Pilot report, Network experiment stream table (medians of 4 runs); per-round values from tier1-default-2026-10-18.json",
+        "unit": "microseconds"
+      }
+    },
+    {
+      "route": "stream-known",
+      "connections": 512,
+      "server": "after-stock",
+      "rps": {
+        "median": 128762,
+        "rounds": [
+          {
+            "round": 1,
+            "value": 124047
+          },
+          {
+            "round": 2,
+            "value": 127977
+          },
+          {
+            "round": 3,
+            "value": 130380
+          },
+          {
+            "round": 4,
+            "value": 129546
+          }
+        ],
+        "source": "Pilot report, Network experiment stream table (medians of 4 runs); per-round values from tier1-default-2026-10-18.json"
+      },
+      "p99": {
+        "median": 5596,
+        "rounds": [
+          {
+            "round": 1,
+            "value": 7520.5
+          },
+          {
+            "round": 2,
+            "value": 4618.833
+          },
+          {
+            "round": 3,
+            "value": 4178.708
+          },
+          {
+            "round": 4,
+            "value": 6572.667
+          }
+        ],
+        "source": "Pilot report, Network experiment stream table (medians of 4 runs); per-round values from tier1-default-2026-10-18.json",
+        "unit": "microseconds"
+      }
+    },
+    {
+      "route": "stream-known",
+      "connections": 512,
+      "server": "after-default",
+      "rps": {
+        "median": 138387,
+        "rounds": [
+          {
+            "round": 1,
+            "value": 134212
+          },
+          {
+            "round": 2,
+            "value": 133973
+          },
+          {
+            "round": 3,
+            "value": 143984
+          },
+          {
+            "round": 4,
+            "value": 142562
+          }
+        ],
+        "source": "Pilot report, Network experiment stream table (medians of 4 runs); per-round values from tier1-default-2026-10-18.json"
+      },
+      "p99": {
+        "median": 8766,
+        "rounds": [
+          {
+            "round": 1,
+            "value": 10927.625
+          },
+          {
+            "round": 2,
+            "value": 15658.458
+          },
+          {
+            "round": 3,
+            "value": 6604
+          },
+          {
+            "round": 4,
+            "value": 5545.167
+          }
+        ],
+        "source": "Pilot report, Network experiment stream table (medians of 4 runs); per-round values from tier1-default-2026-10-18.json",
+        "unit": "microseconds"
+      }
+    },
+    {
+      "route": "stream-chunked",
+      "connections": 64,
+      "server": "before-stock",
+      "rps": {
+        "median": 109574,
+        "rounds": [
+          {
+            "round": 1,
+            "value": 109945
+          },
+          {
+            "round": 2,
+            "value": 111811
+          },
+          {
+            "round": 3,
+            "value": 109203
+          },
+          {
+            "round": 4,
+            "value": 109121
+          }
+        ],
+        "source": "Pilot report, Network experiment stream table (medians of 4 runs); per-round values from tier1-default-2026-10-18.json"
+      },
+      "p99": {
+        "median": 1102,
+        "rounds": [
+          {
+            "round": 1,
+            "value": 1166.167
+          },
+          {
+            "round": 2,
+            "value": 1094.084
+          },
+          {
+            "round": 3,
+            "value": 1104.041
+          },
+          {
+            "round": 4,
+            "value": 1099.5
+          }
+        ],
+        "source": "Pilot report, Network experiment stream table (medians of 4 runs); per-round values from tier1-default-2026-10-18.json",
+        "unit": "microseconds"
+      }
+    },
+    {
+      "route": "stream-chunked",
+      "connections": 64,
+      "server": "after-stock",
+      "rps": {
+        "median": 112207,
+        "rounds": [
+          {
+            "round": 1,
+            "value": 112475
+          },
+          {
+            "round": 2,
+            "value": 111939
+          },
+          {
+            "round": 3,
+            "value": 113420
+          },
+          {
+            "round": 4,
+            "value": 111479
+          }
+        ],
+        "source": "Pilot report, Network experiment stream table (medians of 4 runs); per-round values from tier1-default-2026-10-18.json"
+      },
+      "p99": {
+        "median": 1131,
+        "rounds": [
+          {
+            "round": 1,
+            "value": 1121.5
+          },
+          {
+            "round": 2,
+            "value": 1124.208
+          },
+          {
+            "round": 3,
+            "value": 1138.375
+          },
+          {
+            "round": 4,
+            "value": 2361.292
+          }
+        ],
+        "source": "Pilot report, Network experiment stream table (medians of 4 runs); per-round values from tier1-default-2026-10-18.json",
+        "unit": "microseconds"
+      }
+    },
+    {
+      "route": "stream-chunked",
+      "connections": 64,
+      "server": "after-default",
+      "rps": {
+        "median": 122856,
+        "rounds": [
+          {
+            "round": 1,
+            "value": 121008
+          },
+          {
+            "round": 2,
+            "value": 120476
+          },
+          {
+            "round": 3,
+            "value": 124705
+          },
+          {
+            "round": 4,
+            "value": 127306
+          }
+        ],
+        "source": "Pilot report, Network experiment stream table (medians of 4 runs); per-round values from tier1-default-2026-10-18.json"
+      },
+      "p99": {
+        "median": 1098,
+        "rounds": [
+          {
+            "round": 1,
+            "value": 1369.959
+          },
+          {
+            "round": 2,
+            "value": 1198.583
+          },
+          {
+            "round": 3,
+            "value": 990.959
+          },
+          {
+            "round": 4,
+            "value": 998
+          }
+        ],
+        "source": "Pilot report, Network experiment stream table (medians of 4 runs); per-round values from tier1-default-2026-10-18.json",
+        "unit": "microseconds"
+      }
+    },
+    {
+      "route": "stream-chunked",
+      "connections": 256,
+      "server": "before-stock",
+      "rps": {
+        "median": 110691,
+        "rounds": [
+          {
+            "round": 1,
+            "value": 109681
+          },
+          {
+            "round": 2,
+            "value": 112093
+          },
+          {
+            "round": 3,
+            "value": 105627
+          },
+          {
+            "round": 4,
+            "value": 111701
+          }
+        ],
+        "source": "Pilot report, Network experiment stream table (medians of 4 runs); per-round values from tier1-default-2026-10-18.json"
+      },
+      "p99": {
+        "median": 3931,
+        "rounds": [
+          {
+            "round": 1,
+            "value": 2648.875
+          },
+          {
+            "round": 2,
+            "value": 3763.083
+          },
+          {
+            "round": 3,
+            "value": 4098.875
+          },
+          {
+            "round": 4,
+            "value": 4535.792
+          }
+        ],
+        "source": "Pilot report, Network experiment stream table (medians of 4 runs); per-round values from tier1-default-2026-10-18.json",
+        "unit": "microseconds"
+      }
+    },
+    {
+      "route": "stream-chunked",
+      "connections": 256,
+      "server": "after-stock",
+      "rps": {
+        "median": 111648,
+        "rounds": [
+          {
+            "round": 1,
+            "value": 115062
+          },
+          {
+            "round": 2,
+            "value": 112835
+          },
+          {
+            "round": 3,
+            "value": 110460
+          },
+          {
+            "round": 4,
+            "value": 109983
+          }
+        ],
+        "source": "Pilot report, Network experiment stream table (medians of 4 runs); per-round values from tier1-default-2026-10-18.json"
+      },
+      "p99": {
+        "median": 4685,
+        "rounds": [
+          {
+            "round": 1,
+            "value": 4376
+          },
+          {
+            "round": 2,
+            "value": 5820.459
+          },
+          {
+            "round": 3,
+            "value": 4867
+          },
+          {
+            "round": 4,
+            "value": 4502.709
+          }
+        ],
+        "source": "Pilot report, Network experiment stream table (medians of 4 runs); per-round values from tier1-default-2026-10-18.json",
+        "unit": "microseconds"
+      }
+    },
+    {
+      "route": "stream-chunked",
+      "connections": 256,
+      "server": "after-default",
+      "rps": {
+        "median": 123906,
+        "rounds": [
+          {
+            "round": 1,
+            "value": 129540
+          },
+          {
+            "round": 2,
+            "value": 130659
+          },
+          {
+            "round": 3,
+            "value": 113522
+          },
+          {
+            "round": 4,
+            "value": 118271
+          }
+        ],
+        "source": "Pilot report, Network experiment stream table (medians of 4 runs); per-round values from tier1-default-2026-10-18.json"
+      },
+      "p99": {
+        "median": 3673,
+        "rounds": [
+          {
+            "round": 1,
+            "value": 3527.792
+          },
+          {
+            "round": 2,
+            "value": 2324.208
+          },
+          {
+            "round": 3,
+            "value": 5269.417
+          },
+          {
+            "round": 4,
+            "value": 3818.25
+          }
+        ],
+        "source": "Pilot report, Network experiment stream table (medians of 4 runs); per-round values from tier1-default-2026-10-18.json",
+        "unit": "microseconds"
+      }
+    },
+    {
+      "route": "stream-chunked",
+      "connections": 512,
+      "server": "before-stock",
+      "rps": {
+        "median": 109386,
+        "rounds": [
+          {
+            "round": 1,
+            "value": 114474
+          },
+          {
+            "round": 2,
+            "value": 110966
+          },
+          {
+            "round": 3,
+            "value": 104133
+          },
+          {
+            "round": 4,
+            "value": 107806
+          }
+        ],
+        "source": "Pilot report, Network experiment stream table (medians of 4 runs); per-round values from tier1-default-2026-10-18.json"
+      },
+      "p99": {
+        "median": 7692,
+        "rounds": [
+          {
+            "round": 1,
+            "value": 4899.792
+          },
+          {
+            "round": 2,
+            "value": 8528.25
+          },
+          {
+            "round": 3,
+            "value": 6855.333
+          },
+          {
+            "round": 4,
+            "value": 13347.667
+          }
+        ],
+        "source": "Pilot report, Network experiment stream table (medians of 4 runs); per-round values from tier1-default-2026-10-18.json",
+        "unit": "microseconds"
+      }
+    },
+    {
+      "route": "stream-chunked",
+      "connections": 512,
+      "server": "after-stock",
+      "rps": {
+        "median": 110284,
+        "rounds": [
+          {
+            "round": 1,
+            "value": 110996
+          },
+          {
+            "round": 2,
+            "value": 112369
+          },
+          {
+            "round": 3,
+            "value": 109573
+          },
+          {
+            "round": 4,
+            "value": 103774
+          }
+        ],
+        "source": "Pilot report, Network experiment stream table (medians of 4 runs); per-round values from tier1-default-2026-10-18.json"
+      },
+      "p99": {
+        "median": 9863,
+        "rounds": [
+          {
+            "round": 1,
+            "value": 4838.458
+          },
+          {
+            "round": 2,
+            "value": 9897.417
+          },
+          {
+            "round": 3,
+            "value": 9829.542
+          },
+          {
+            "round": 4,
+            "value": 16419.375
+          }
+        ],
+        "source": "Pilot report, Network experiment stream table (medians of 4 runs); per-round values from tier1-default-2026-10-18.json",
+        "unit": "microseconds"
+      }
+    },
+    {
+      "route": "stream-chunked",
+      "connections": 512,
+      "server": "after-default",
+      "rps": {
+        "median": 128152,
+        "rounds": [
+          {
+            "round": 1,
+            "value": 128290
+          },
+          {
+            "round": 2,
+            "value": 128015
+          },
+          {
+            "round": 3,
+            "value": 128558
+          },
+          {
+            "round": 4,
+            "value": 98478
+          }
+        ],
+        "source": "Pilot report, Network experiment stream table (medians of 4 runs); per-round values from tier1-default-2026-10-18.json"
+      },
+      "p99": {
+        "median": 5602,
+        "rounds": [
+          {
+            "round": 1,
+            "value": 5406.083
+          },
+          {
+            "round": 2,
+            "value": 5798.333
+          },
+          {
+            "round": 3,
+            "value": 4669.834
+          },
+          {
+            "round": 4,
+            "value": 22303.25
+          }
+        ],
+        "source": "Pilot report, Network experiment stream table (medians of 4 runs); per-round values from tier1-default-2026-10-18.json",
+        "unit": "microseconds"
+      }
+    }
+  ],
+  "cpuExamples": [
+    {
+      "label": "GET /, 256",
+      "secondsPer250k": [
+        {
+          "server": "before-stock",
+          "seconds": "2.395"
+        },
+        {
+          "server": "before-tier1",
+          "seconds": "2.185"
+        },
+        {
+          "server": "after-default",
+          "seconds": "2.170"
+        },
+        {
+          "server": "raw",
+          "seconds": "2.380"
+        }
+      ]
+    },
+    {
+      "label": "GET /user/42, 512",
+      "secondsPer250k": [
+        {
+          "server": "before-stock",
+          "seconds": "2.840"
+        },
+        {
+          "server": "before-tier1",
+          "seconds": "2.515"
+        },
+        {
+          "server": "after-default",
+          "seconds": "2.420"
+        },
+        {
+          "server": "raw",
+          "seconds": "2.685"
+        }
+      ]
+    },
+    {
+      "label": "Known-length c512 streams",
+      "secondsPer250k": [
+        {
+          "server": "before-stock",
+          "seconds": "3.910"
+        },
+        {
+          "server": "after-stock",
+          "seconds": "3.880"
+        },
+        {
+          "server": "after-default",
+          "seconds": "3.615"
+        }
+      ]
+    }
+  ],
+  "rssMax": [
+    {
+      "server": "before-stock",
+      "peakRssKib": 24968
+    },
+    {
+      "server": "before-tier1",
+      "peakRssKib": 24084
+    },
+    {
+      "server": "after-default",
+      "peakRssKib": 24192
+    },
+    {
+      "server": "after-stock",
+      "peakRssKib": 24996
+    },
+    {
+      "server": "raw",
+      "peakRssKib": 24332
+    }
+  ],
+  "environment": {
+    "swift": "6.4",
+    "swift_nio": "2.104.0",
+    "os": "Linux 7.0.12-linuxkit aarch64",
+    "host_cpu": "Apple M1 Pro",
+    "vcpus": 8,
+    "server_cpu_set": "0-3",
+    "client_cpu_set": "4-7",
+    "server_threads": 2,
+    "client_threads_requested": 4,
+    "client_threads_observed": 2,
+    "requests_per_sample": 250000,
+    "warmup_requests": 20000,
+    "rounds": 4,
+    "client_tcp_nodelay": false
+  },
+  "notes": [
+    "Baseline has the same compile-only fflush(nil) fix; its transport sources are unchanged.",
+    "Server RSS is the process-lifetime high-water mark, including earlier cells.",
+    "Each latency percentile is per run; summary medians do not pool samples.",
+    "The same current client binary is used for every server.",
+    "No independent load generator or bare-metal validation was run."
+  ]
+}

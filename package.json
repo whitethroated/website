@@ -1,0 +1,1 @@
+{"devDependencies":{"astro":"7.4.12"},"engines":{"node":">=20"},"name":"whitethroated-web","private":true,"scripts":{"build":"astro build","check:data":"node scripts/generate-site-data.mjs --check && python3 scripts/verify-matrix.py","data":"node scripts/generate-site-data.mjs","dev":"astro dev","preview":"astro preview --port 4321"},"type":"module","version":"0.1.0"}

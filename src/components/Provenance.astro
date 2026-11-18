@@ -1,0 +1,43 @@
+---
+import GateBadge from './GateBadge.astro';
+
+interface Provenance {
+  commit: string;
+  swift: string;
+  swiftNIO: string;
+  os: string;
+  cpu: string;
+  generator: string;
+  measured: string;
+}
+interface Props {
+  packCommit: string;
+  provenance: Provenance;
+  gateStatus: 'pass' | 'mixed' | 'rejected';
+  dataPath: string;
+  dataSha256: string;
+  reportHref: string;
+}
+const { packCommit, provenance, gateStatus, dataPath, dataSha256, reportHref } = Astro.props;
+---
+<footer class="provenance" aria-label="Result provenance">
+  <p><strong>Provenance.</strong> Gate status <GateBadge status={gateStatus} /></p>
+  <dl>
+    <dt>Framework snapshot</dt>
+    <dd><code>{packCommit}</code> (site data pack)</dd>
+    <dt>Measured code</dt>
+    <dd><code>{provenance.commit}</code></dd>
+    <dt>Swift / SwiftNIO</dt>
+    <dd>{provenance.swift} / {provenance.swiftNIO}</dd>
+    <dt>OS / CPU</dt>
+    <dd>{provenance.os}; {provenance.cpu}</dd>
+    <dt>Load generator</dt>
+    <dd>{provenance.generator}</dd>
+    <dt>Measured</dt>
+    <dd>{provenance.measured}</dd>
+    <dt>Raw data</dt>
+    <dd><a href={dataPath}><code>{dataPath.replace(/^\//, '')}</code></a> (SHA-256 <code>{dataSha256}</code>)</dd>
+    <dt>Full report</dt>
+    <dd><a href={reportHref}>Pilot report</a></dd>
+  </dl>
+</footer>

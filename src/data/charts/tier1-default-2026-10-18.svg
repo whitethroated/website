@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg class="wt-chart" xmlns="http://www.w3.org/2000/svg" width="670" height="404" role="img" aria-labelledby="wt-tier1-default-2026-10-18-title">
+  <title id="wt-tier1-default-2026-10-18-title">Tier 1 default-transport validation: requests per second</title>
+  <text class="wt-label" x="0" y="49">GET / · c256 · current-default</text>
+  <rect class="wt-bar" x="240" y="34" width="321" height="18" />
+  <text class="wt-value" x="569" y="49">195248</text>
+  <text class="wt-label" x="0" y="79">GET / · c256 · old-stock</text>
+  <rect class="wt-bar" x="240" y="64" width="340" height="18" />
+  <text class="wt-value" x="588" y="79">206680</text>
+  <text class="wt-label" x="0" y="109">GET / · c256 · old-tier1</text>
+  <rect class="wt-bar" x="240" y="94" width="331" height="18" />
+  <text class="wt-value" x="579" y="109">200972</text>
+  <text class="wt-label" x="0" y="139">GET / · c256 · raw-nio</text>
+  <rect class="wt-bar" x="240" y="124" width="338" height="18" />
+  <text class="wt-value" x="586" y="139">205403</text>
+  <text class="wt-label" x="0" y="169">GET / · c512 · current-default</text>
+  <rect class="wt-bar" x="240" y="154" width="310" height="18" />
+  <text class="wt-value" x="558" y="169">188394</text>
+  <text class="wt-label" x="0" y="199">GET / · c512 · old-stock</text>
+  <rect class="wt-bar" x="240" y="184" width="309" height="18" />
+  <text class="wt-value" x="557" y="199">187596</text>
+  <text class="wt-label" x="0" y="229">GET / · c512 · old-tier1</text>
+  <rect class="wt-bar" x="240" y="214" width="327" height="18" />
+  <text class="wt-value" x="575" y="229">198518</text>
+  <text class="wt-label" x="0" y="259">GET / · c512 · raw-nio</text>
+  <rect class="wt-bar" x="240" y="244" width="335" height="18" />
+  <text class="wt-value" x="583" y="259">203912</text>
+  <text class="wt-label" x="0" y="289">GET / · c64 · current-default</text>
+  <rect class="wt-bar" x="240" y="274" width="328" height="18" />
+  <text class="wt-value" x="576" y="289">199148</text>
+  <text class="wt-label" x="0" y="319">GET / · c64 · old-stock</text>
+  <rect class="wt-bar" x="240" y="304" width="335" height="18" />
+  <text class="wt-value" x="583" y="319">203664</text>
+  <text class="wt-label" x="0" y="349">GET / · c64 · old-tier1</text>
+  <rect class="wt-bar" x="240" y="334" width="333" height="18" />
+  <text class="wt-value" x="581" y="349">202248</text>
+  <text class="wt-label" x="0" y="379">GET / · c64 · raw-nio</text>
+  <rect class="wt-bar" x="240" y="364" width="324" height="18" />
+  <text class="wt-value" x="572" y="379">196847</text>
+</svg>

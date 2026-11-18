@@ -1,0 +1,94 @@
+---
+import Site from '../../layouts/Site.astro';
+---
+<Site
+  title="Methodology"
+  current="methodology"
+  description="How WhiteThroated benchmarks are run and judged, and how to reproduce the pilot matrix."
+>
+  <h1>Methodology</h1>
+  <p class="lede">
+    How benchmarks are run and judged. Distilled from the framework's <code>BENCHMARKS.md</code>;
+    fine detail lives in the pilot report and in that file.
+  </p>
+
+  <h2>Control hierarchy (always in this order)</h2>
+  <ol>
+    <li>Same WhiteThroated path before vs after a change.</li>
+    <li>Equivalent raw SwiftNIO control (transport lower bound, no framework routing).</li>
+    <li>Equivalent WhiteThroated responder modes (prepared / sync / future / async).</li>
+    <li>
+      External frameworks (Actix Web reference, Express/Hono controls) only after Swift-side
+      overhead is understood. External controls live outside the Swift repository, which stays
+      Swift-only.
+    </li>
+  </ol>
+
+  <h2>External contract routes</h2>
+  <p>
+    Every cross-framework comparison uses the same three routes with identical semantics:
+    <code>GET /</code> returns an empty 2xx response; <code>GET /user/:id</code> returns the
+    route parameter as the body; <code>POST /user</code> returns an empty 2xx response. Never
+    compare WhiteThroated's prepared diagnostic route against another framework's dynamic route.
+  </p>
+
+  <h2>Concurrency gates</h2>
+  <p>
+    Run the matrix at 64, 256, and 512 concurrent connections. All three levels are independent
+    acceptance gates: a change is not a win if peak throughput rises while another level's tail
+    latency regresses materially.
+  </p>
+
+  <h2>Throughput vs latency runs</h2>
+  <p>
+    Collect separate throughput-only samples (primary RPS result) and latency-enabled samples
+    (paired distribution: min, average, p50, p75, p90, p99, p99.999, max). The Swift benchmark
+    client opens all connections before the timer starts, keeps one request in flight per
+    connection, and excludes connection setup from measurement. Timestamp collection is part of
+    the client workload, so compared servers must use the same latency setting.
+  </p>
+
+  <h2>What every published result records</h2>
+  <p>
+    Requests/second; min/avg/p50/p75/p90/p99/p99.999/max latency; CPU and resident memory; Swift
+    and SwiftNIO versions; external versions when applicable; OS and CPU model; exact commands;
+    commit SHA; warm-up, rounds, and ordering. Raw samples are archived with the record.
+  </p>
+
+  <h2>Evidence gates (non-negotiable)</h2>
+  <ul>
+    <li>CI smoke numbers are not performance evidence and are never published.</li>
+    <li><code>COMPLETE.txt</code> means a campaign executed; it does not mean gates passed.</li>
+    <li>
+      Never mix runs across load-generator versions. Two published errata required full
+      rebaselining: the client event-loop distribution fix and the TCP socket-option correction.
+      Historical labels affected by them must carry the erratum, not silent reinterpretation.
+    </li>
+    <li>In-process ns/op diagnostics explain costs; they never substitute for network measurements.</li>
+    <li>
+      Sub-10% claims need the strengthened protocol: quiet-host preflight, rotated/alternating
+      order, and enough rounds to beat run-to-run variance. Within-noise results are reported as
+      neutral, never as wins.
+    </li>
+  </ul>
+
+  <h2>Reproducing the pilot matrix</h2>
+  <p>
+    The pilot report reproduces its matrix with the server and client commands in
+    <code>BENCHMARKS.md</code> — that file is part of the framework repository, not of this
+    site's data pack, so the exact commands are not quoted here. The report fixes everything
+    else (report, Network experiment):
+  </p>
+  <ul>
+    <li>Servers: both baseline modes, current default, and raw NIO.</li>
+    <li>Routes: <code>GET /</code>, <code>GET /user/42</code>, <code>POST /user</code>, plus the response-stream controls.</li>
+    <li>Affinities: server CPUs 0–3 with two event-loop threads, client CPUs 4–7.</li>
+    <li>Counts: 20,000-request warm-up, then separate 250,000-request throughput and latency samples per cell.</li>
+    <li>Flags: HTTP/1.1 persistent connections, no TLS or compression, client override flag <code>TCP_NODELAY=0</code> (effective value unverified — see errata).</li>
+    <li>Order: four rounds alternating server order, at 64, 256, and 512 connections.</li>
+  </ul>
+  <p>
+    <a href="/reports/tier1-default-2026-10-18/">Read the full pilot report</a> or
+    <a href="/data/tier1-default-2026-10-18.json">download the raw measurement data</a>.
+  </p>
+</Site>

@@ -1,0 +1,176 @@
+---
+import Site from '../../layouts/Site.astro';
+import GateBadge from '../../components/GateBadge.astro';
+import MatrixTable from '../../components/MatrixTable.astro';
+import Provenance from '../../components/Provenance.astro';
+import matrix from '../../data/matrix.json';
+import siteData from '../../data/site-data.json';
+import chart from '../../data/charts/tier1-default-2026-10-18.svg?raw';
+
+const report = siteData.reports[0];
+const dataFile = report.dataFiles[0];
+
+function mainCell(route: string, conns: number, server: string) {
+  const c = matrix.main.find((m) => m.route === route && m.connections === conns && m.server === server);
+  if (!c) throw new Error(`missing cell ${route} c${conns} ${server}`);
+  return c;
+}
+function streamCell(route: string, conns: number, server: string) {
+  const c = matrix.streams.find((m) => m.route === route && m.connections === conns && m.server === server);
+  if (!c) throw new Error(`missing stream cell ${route} c${conns} ${server}`);
+  return c;
+}
+
+const mainRoutes = ['root', 'user-get', 'user-post'];
+const rpsRows = mainRoutes.flatMap((route) =>
+  matrix.connections.map((conns) => ({
+    label: `${matrix.routes[route]} · c${conns}`,
+    cells: matrix.mainColumns.map((server) => ({ primary: mainCell(route, conns, server).rps })),
+  }))
+);
+const p99Rows = mainRoutes.flatMap((route) =>
+  matrix.connections.map((conns) => ({
+    label: `${matrix.routes[route]} · c${conns}`,
+    cells: matrix.mainColumns.map((server) => ({ primary: mainCell(route, conns, server).p99 })),
+  }))
+);
+const streamRows = ['stream-known', 'stream-chunked'].flatMap((route) =>
+  matrix.connections.map((conns) => ({
+    label: `${matrix.routes[route]} · c${conns}`,
+    cells: matrix.streamColumns.map((server) => {
+      const c = streamCell(route, conns, server);
+      return { primary: c.rps, secondary: c.p99 };
+    }),
+  }))
+);
+const mainColumns = matrix.mainColumns.map((s) => matrix.servers[s]);
+const streamColumns = matrix.streamColumns.map((s) => matrix.servers[s]);
+const knownC512 = (server: string) =>
+  streamCell('stream-known', 512, server).p99.rounds.map((r) => r.value.toLocaleString('en-US')).join(' / ');
+---
+<Site
+  title="Results"
+  current="results"
+  wide
+  description="WhiteThroated benchmark matrices with full cells and per-cell provenance."
+>
+  <h1>Results</h1>
+  <p class="lede">
+    Pilot content: the <a href="/reports/tier1-default-2026-10-18/">Tier 1 default-transport validation</a>
+    (measured 2026-10-18). Every cell below ships with all of its rounds; nothing is cherry-picked.
+  </p>
+
+  <div class="callout callout-warn">
+    <p><strong>Verdict — gate: {report.gateStatus}.</strong> <GateBadge status={report.gateStatus} /></p>
+    <p>{report.verdict}</p>
+    <p>
+      This is a correctness-backed default selection, <strong>not an overall performance win</strong>:
+      POST c512 median p99 is worse than old Tier 1, and known-length streaming c512 median p99 is
+      worse than both stock controls. Those signals sit beside the throughput figures, not behind them
+      (report, Interpretation and tradeoff).
+    </p>
+  </div>
+
+  <h2>Throughput (requests/second, latency collection disabled)</h2>
+  <MatrixTable
+    caption="Medians of 4 runs. Expand any cell for all 4 rounds and its source."
+    columns={mainColumns}
+    rows={rpsRows}
+    unit="req/s"
+  />
+
+  <h2>p99 latency (microseconds, separate latency-enabled runs)</h2>
+  <MatrixTable
+    caption="Medians of 4 runs; latency samples are not pooled. Expand any cell for all 4 rounds and its source."
+    columns={mainColumns}
+    rows={p99Rows}
+    unit="p99 µs"
+  />
+
+  <h2>Response-stream controls (throughput RPS / p99 µs)</h2>
+  <p>
+    Baseline stock, current forced stock, and current default on known-length and chunked
+    <code>Hello, World!</code> responses. The baseline Tier 1 cannot serve these streams, so it is
+    not a stream control (report, Network experiment).
+  </p>
+  <MatrixTable
+    caption="Medians of 4 runs from the separate throughput and latency runs. Expand any cell for all 4 rounds and its source."
+    columns={streamColumns}
+    rows={streamRows}
+    unit="req/s"
+    secondaryUnit="p99 µs"
+  />
+  <div class="callout">
+    <p>
+      Known-length streams at c512: the four current-default p99 values are {knownC512('after-default')} µs
+      (rounds 1–4), versus old stock {knownC512('before-stock')} µs. The medians indicate a
+      substantial tail cost despite higher throughput; the overlapping excursions prevent a clean
+      mechanism attribution (report, Network experiment).
+    </p>
+  </div>
+
+  <h2>Exporter chart (GET /, all concurrencies)</h2>
+  <figure class="chart">
+    <Fragment set:html={chart} />
+    <figcaption>
+      Exporter-generated chart fragment ({report.chartFile}): requests per second for the 12 GET /
+      figures. Values match the throughput table above; see the provenance footer for the full context.
+    </figcaption>
+  </figure>
+
+  <h2>CPU and memory</h2>
+  <p>
+    Median process CPU-seconds per 250,000 throughput requests (100 ticks/second), and maximum
+    observed process RSS per server. RSS is a process-lifetime high-water mark including earlier
+    warm-up and load, not a fresh-process peak per cell, and this finite workload is not a
+    long-duration leak test (report, Network experiment).
+  </p>
+  <div class="table-scroll">
+    <table class="matrix">
+      <caption>CPU-seconds per 250,000 throughput requests (medians of 4 runs).</caption>
+      <thead>
+        <tr>
+          <th scope="col">Route / connections</th>
+          {matrix.cpuExamples[0].secondsPer250k.map((s) => <th scope="col">{matrix.servers[s.server]}</th>)}
+        </tr>
+      </thead>
+      <tbody>
+        {matrix.cpuExamples.slice(0, 2).map((ex) => (
+          <tr>
+            <th scope="row">{ex.label}</th>
+            {ex.secondsPer250k.map((s) => <td><span class="num">{s.seconds}</span></td>)}
+          </tr>
+        ))}
+      </tbody>
+    </table>
+  </div>
+  <p>
+    Known-length c512 streams use {matrix.cpuExamples[2].secondsPer250k.map((s) => s.seconds).join(', ')}
+    CPU-seconds on {matrix.cpuExamples[2].secondsPer250k.map((s) => matrix.servers[s.server].toLowerCase()).join(', ')} respectively.
+    Maximum observed process RSS: {matrix.rssMax.map((r) => `${r.peakRssKib.toLocaleString('en-US')} KiB (${matrix.servers[r.server].toLowerCase()})`).join(', ')}.
+  </p>
+
+  <h2>How the matrix was run</h2>
+  <ul>
+    <li>Each cell: 20,000-request warm-up, then separate throughput and latency samples of 250,000 requests.</li>
+    <li>Four rounds in alternating server order; concurrency 64, 256, and 512.</li>
+    <li>Servers: baseline stock, baseline Tier 1, current default Tier 1, and unchanged raw NIO (plus current forced stock for streams).</li>
+    <li>Two event-loop threads; server CPUs 0–3, client CPUs 4–7; HTTP/1.1 persistent connections, no TLS or compression.</li>
+    <li>The client requests four threads but uses two event loops (double <code>group.next()</code>); held constant across servers.</li>
+    <li>All 432 samples completed: 108 million measured requests with no client failures.</li>
+  </ul>
+  <p>
+    Two generator caveats apply to this matrix: the pre-fix loop distribution above, and the
+    socket-option erratum (historical <code>TCP_NODELAY=0</code> labels did not prove the effective
+    value). See the <a href="/reports/">report archive</a> for errata and the full report for commands.
+  </p>
+
+  <Provenance
+    packCommit={siteData.generatedFromCommit}
+    provenance={report.provenance}
+    gateStatus={report.gateStatus}
+    dataPath={`/data/${dataFile.path}`}
+    dataSha256={dataFile.sha256}
+    reportHref="/reports/tier1-default-2026-10-18/"
+  />
+</Site>

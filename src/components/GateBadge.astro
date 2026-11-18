@@ -1,0 +1,6 @@
+---
+// Gate badge. Vocabulary is fixed by the content contract: pass | mixed | rejected.
+interface Props { status: 'pass' | 'mixed' | 'rejected' }
+const { status } = Astro.props;
+---
+<span class={`gate gate-${status}`}>gate: {status}</span>

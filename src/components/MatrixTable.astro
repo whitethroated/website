@@ -1,0 +1,65 @@
+---
+// Full-matrix table: every cell ships with all of its rounds (content
+// contract, full-matrix rule) and its source. No cherry-picked cells.
+interface Round { round: number; value: number }
+interface CellValue { median: number; rounds: Round[]; source: string }
+interface Cell { primary: CellValue; secondary?: CellValue }
+interface Props {
+  caption: string;
+  columns: string[];
+  rows: { label: string; cells: Cell[] }[];
+  unit: string;
+  secondaryUnit?: string;
+}
+const { caption, columns, rows, unit, secondaryUnit } = Astro.props;
+const fmt = (n: number) =>
+  Number.isInteger(n) ? n.toLocaleString('en-US') : n.toLocaleString('en-US', { maximumFractionDigits: 6 });
+---
+<div class="table-scroll">
+  <table class="matrix">
+    <caption>{caption}</caption>
+    <thead>
+      <tr>
+        <th scope="col">Cell</th>
+        {columns.map((c) => <th scope="col">{c}</th>)}
+      </tr>
+    </thead>
+    <tbody>
+      {rows.map((row) => (
+        <tr>
+          <th scope="row">{row.label}</th>
+          {row.cells.map((cell) => (
+            <td>
+              <span class="num">{fmt(cell.primary.median)}</span>
+              {cell.secondary && (
+                <span class="num"> / {fmt(cell.secondary.median)}</span>
+              )}
+              <details>
+                <summary>4 rounds + source</summary>
+                <table>
+                  <thead>
+                    <tr>
+                      <th scope="col">Round</th>
+                      <th scope="col">{unit}</th>
+                      {cell.secondary && <th scope="col">{secondaryUnit}</th>}
+                    </tr>
+                  </thead>
+                  <tbody>
+                    {cell.primary.rounds.map((r, i) => (
+                      <tr>
+                        <td>{r.round}</td>
+                        <td class="num">{fmt(r.value)}</td>
+                        {cell.secondary && <td class="num">{fmt(cell.secondary.rounds[i].value)}</td>}
+                      </tr>
+                    ))}
+                  </tbody>
+                </table>
+                <p class="provenance-note">Median of 4 runs. Source: {cell.primary.source}</p>
+              </details>
+            </td>
+          ))}
+        </tr>
+      ))}
+    </tbody>
+  </table>
+</div>

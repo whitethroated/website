@@ -1,0 +1,139 @@
+{
+  "siteSchemaVersion" : 1,
+  "generatedFromCommit" : "2b3493869803eaa8b3f78bc2bd26c86c5c8c1e8f",
+  "reports" : [
+    {
+      "id" : "tier1-default-2026-10-18",
+      "title" : "Tier 1 default-transport validation",
+      "reportFile" : "benchmark-tier1-default-2026-10-18.md",
+      "verdict" : "Correctness-backed Tier 1 default selection; not an overall performance win. Ordinary-route throughput vs old Tier 1 ranges -5.1% to +3.7% in median with overlapping spreads; POST c512 and known-length stream c512 p99 medians regress. No leaderboard update.",
+      "gateStatus" : "mixed",
+      "provenance" : {
+        "commit" : "4acc77c29655c6a6f408359ff46dfafe62f2d91b (baseline) / measured production diff eca917afcc45b84e81e3cec3beb4e0ea0d600f4ca3e67936da91e39542d994d4",
+        "swift" : "6.4 (SwiftBuild backend, release)",
+        "swiftNIO" : "2.104.0",
+        "os" : "Linux 7.0.12-linuxkit aarch64 (Docker Desktop VM, 8 vCPUs)",
+        "cpu" : "Apple M1 Pro host; server CPUs 0-3 with 2 event-loop threads; client CPUs 4-7",
+        "generator" : "whitethroated-benchmark-client pre loop-distribution fix (requests 4 threads, uses 2); TCP_NODELAY flag 0 with effective value unverified, see socket-options erratum",
+        "measured" : "2026-10-18"
+      },
+      "dataFiles" : [
+        {
+          "path" : "tier1-default-2026-10-18.json",
+          "sha256" : "84d034b170aa7d374f3970dee7578c244210a900d594e7f77cd93003653fe70d",
+          "schema" : "opaque-archive"
+        }
+      ],
+      "figures" : [
+        {
+          "label" : "GET / · c64 · old-stock",
+          "server" : "old-stock",
+          "route" : "GET /",
+          "connections" : 64,
+          "requestsPerSecond" : 203664,
+          "p99Microseconds" : 673,
+          "source" : "report Network experiment throughput + p99 tables, medians of 4 runs"
+        },
+        {
+          "label" : "GET / · c64 · old-tier1",
+          "server" : "old-tier1",
+          "route" : "GET /",
+          "connections" : 64,
+          "requestsPerSecond" : 202248,
+          "p99Microseconds" : 863,
+          "source" : "report Network experiment throughput + p99 tables, medians of 4 runs"
+        },
+        {
+          "label" : "GET / · c64 · current-default",
+          "server" : "current-default",
+          "route" : "GET /",
+          "connections" : 64,
+          "requestsPerSecond" : 199148,
+          "p99Microseconds" : 764,
+          "source" : "report Network experiment throughput + p99 tables, medians of 4 runs"
+        },
+        {
+          "label" : "GET / · c64 · raw-nio",
+          "server" : "raw-nio",
+          "route" : "GET /",
+          "connections" : 64,
+          "requestsPerSecond" : 196847,
+          "p99Microseconds" : 729,
+          "source" : "report Network experiment throughput + p99 tables, medians of 4 runs"
+        },
+        {
+          "label" : "GET / · c256 · old-stock",
+          "server" : "old-stock",
+          "route" : "GET /",
+          "connections" : 256,
+          "requestsPerSecond" : 206680,
+          "p99Microseconds" : 2548,
+          "source" : "report Network experiment throughput + p99 tables, medians of 4 runs"
+        },
+        {
+          "label" : "GET / · c256 · old-tier1",
+          "server" : "old-tier1",
+          "route" : "GET /",
+          "connections" : 256,
+          "requestsPerSecond" : 200972,
+          "p99Microseconds" : 2929,
+          "source" : "report Network experiment throughput + p99 tables, medians of 4 runs"
+        },
+        {
+          "label" : "GET / · c256 · current-default",
+          "server" : "current-default",
+          "route" : "GET /",
+          "connections" : 256,
+          "requestsPerSecond" : 195248,
+          "p99Microseconds" : 2538,
+          "source" : "report Network experiment throughput + p99 tables, medians of 4 runs"
+        },
+        {
+          "label" : "GET / · c256 · raw-nio",
+          "server" : "raw-nio",
+          "route" : "GET /",
+          "connections" : 256,
+          "requestsPerSecond" : 205403,
+          "p99Microseconds" : 2689,
+          "source" : "report Network experiment throughput + p99 tables, medians of 4 runs"
+        },
+        {
+          "label" : "GET / · c512 · old-stock",
+          "server" : "old-stock",
+          "route" : "GET /",
+          "connections" : 512,
+          "requestsPerSecond" : 187596,
+          "p99Microseconds" : 4941,
+          "source" : "report Network experiment throughput + p99 tables, medians of 4 runs"
+        },
+        {
+          "label" : "GET / · c512 · old-tier1",
+          "server" : "old-tier1",
+          "route" : "GET /",
+          "connections" : 512,
+          "requestsPerSecond" : 198518,
+          "p99Microseconds" : 5202,
+          "source" : "report Network experiment throughput + p99 tables, medians of 4 runs"
+        },
+        {
+          "label" : "GET / · c512 · current-default",
+          "server" : "current-default",
+          "route" : "GET /",
+          "connections" : 512,
+          "requestsPerSecond" : 188394,
+          "p99Microseconds" : 5037,
+          "source" : "report Network experiment throughput + p99 tables, medians of 4 runs"
+        },
+        {
+          "label" : "GET / · c512 · raw-nio",
+          "server" : "raw-nio",
+          "route" : "GET /",
+          "connections" : 512,
+          "requestsPerSecond" : 203912,
+          "p99Microseconds" : 6160,
+          "source" : "report Network experiment throughput + p99 tables, medians of 4 runs"
+        }
+      ]
+    }
+  ]
+}

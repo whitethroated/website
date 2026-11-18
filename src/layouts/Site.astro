@@ -1,0 +1,43 @@
+---
+import '../styles/global.css';
+
+interface Props {
+  title: string;
+  description?: string;
+  wide?: boolean;
+  current?: 'results' | 'methodology' | 'reports';
+}
+const { title, description, wide = false, current } = Astro.props;
+const fullTitle = title === 'WhiteThroated' ? title : `${title} — WhiteThroated`;
+---
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>{fullTitle}</title>
+    {description && <meta name="description" content={description} />}
+    <meta name="color-scheme" content="light dark" />
+  </head>
+  <body>
+    <header class="site-header">
+      <div class="wrap-wide">
+        <a class="brand" href="/">WhiteThroated</a>
+        <nav class="site-nav" aria-label="Primary">
+          <a href="/results/" aria-current={current === 'results' ? 'page' : undefined}>Results</a>
+          <a href="/methodology/" aria-current={current === 'methodology' ? 'page' : undefined}>Methodology</a>
+          <a href="/reports/" aria-current={current === 'reports' ? 'page' : undefined}>Reports</a>
+        </nav>
+      </div>
+    </header>
+    <main class={wide ? 'wrap-wide' : 'wrap'}>
+      <slot />
+    </main>
+    <footer class="site-footer">
+      <div class={wide ? 'wrap-wide' : 'wrap'}>
+        <p>WhiteThroated is an experimental pre-alpha Swift web framework. Every figure on this site carries provenance; see the methodology and reports pages.</p>
+        <p>Site data pack: framework snapshot <code>2b3493869803eaa8b3f78bc2bd26c86c5c8c1e8f</code> (2026-11-18).</p>
+      </div>
+    </footer>
+  </body>
+</html>
