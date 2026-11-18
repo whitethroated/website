@@ -45,6 +45,7 @@ if (root) {
 
   const svg = root.querySelector<SVGSVGElement>('#reading-chart')!;
   const chartMessage = element('chart-message');
+  const tooltip = element('chart-tooltip');
   const plotStart = 38;
   const plotWidth = 852;
   let selectedTime: number | undefined;
@@ -88,25 +89,61 @@ if (root) {
       const line = document.createElementNS(ns, 'line'); line.setAttribute('x1', '38'); line.setAttribute('x2', '890'); line.setAttribute('y1', String(y)); line.setAttribute('y2', String(y)); line.setAttribute('stroke', 'var(--wt-border)'); svg.append(line);
       const text = document.createElementNS(ns, 'text'); text.setAttribute('x', '30'); text.setAttribute('y', String(y + 4)); text.setAttribute('text-anchor', 'end'); text.setAttribute('fill', 'var(--wt-text-secondary)'); text.setAttribute('font-size', '11'); text.textContent = String(Math.round(max * (1 - i / 4))); svg.append(text);
     }
-    for (const kind of ['human', 'agent'] as const) {
-      const line = document.createElementNS(ns, 'polyline');
-      line.setAttribute('points', points.map((p, i) => `${plotStart + i * plotWidth / Math.max(1, points.length - 1)},${224 - p[kind] / max * 212}`).join(' '));
-      line.setAttribute('fill', 'none'); line.setAttribute('stroke', kind === 'human' ? 'var(--human)' : 'var(--agent)'); line.setAttribute('stroke-width', '3'); line.setAttribute('vector-effect', 'non-scaling-stroke'); svg.append(line);
-    }
-    for (const [i, point] of [[0, points[0]], [points.length - 1, points[points.length - 1]]] as const) {
-      const text = document.createElementNS(ns, 'text'); text.setAttribute('x', String(plotStart + i * plotWidth / Math.max(1, points.length - 1))); text.setAttribute('y', '250'); text.setAttribute('text-anchor', i === 0 ? 'start' : 'end'); text.setAttribute('fill', 'var(--wt-text-secondary)'); text.setAttribute('font-size', '11'); text.textContent = new Date(point.time).toLocaleDateString(undefined, { month: 'short', day: 'numeric', timeZone: 'UTC' }); svg.append(text);
+    const kinds = ['human', 'agent'] as const;
+    const xAt = (index: number) => plotStart + index * plotWidth / Math.max(1, points.length - 1);
+    const yAt = (reads: number) => 224 - reads / max * 212;
+    const appendSvg = <K extends keyof SVGElementTagNameMap>(tag: K, attrs: Record<string, string | number>, parent: SVGElement = svg) => {
+      const node = document.createElementNS(ns, tag);
+      for (const [key, value] of Object.entries(attrs)) node.setAttribute(key, String(value));
+      parent.append(node);
+      return node;
+    };
+
+    const defs = appendSvg('defs', {});
+    const strokes = kinds.map((kind) => {
+      const id = `trend-fill-${kind}`;
+      const color = `var(--${kind})`;
+      const gradient = appendSvg('linearGradient', { id, x2: '0%', y2: '100%' }, defs);
+      appendSvg('stop', { offset: '0%', 'stop-color': color, 'stop-opacity': .22 }, gradient);
+      appendSvg('stop', { offset: '100%', 'stop-color': color, 'stop-opacity': 0 }, gradient);
+
+      // Midpoint control handles smooth each interval without overshooting its counts.
+      let path = `M ${xAt(0)} ${yAt(points[0][kind])}`;
+      for (let i = 1; i < points.length; i++) {
+        const middle = (xAt(i - 1) + xAt(i)) / 2;
+        const y = yAt(points[i][kind]);
+        path += ` C ${middle} ${yAt(points[i - 1][kind])}, ${middle} ${y}, ${xAt(i)} ${y}`;
+      }
+      appendSvg('path', { d: `${path} L ${xAt(points.length - 1)} 224 H ${plotStart} Z`, fill: `url(#${id})` });
+      return { d: path, stroke: color, fill: 'none', 'stroke-width': 2.5, 'stroke-linecap': 'round', 'vector-effect': 'non-scaling-stroke' };
+    });
+    for (const stroke of strokes) appendSvg('path', stroke);
+
+    const tickCount = Math.min(points.length, svg.clientWidth < 480 ? 3 : 6);
+    for (let tick = 0; tick < tickCount; tick++) {
+      const index = Math.round(tick * (points.length - 1) / Math.max(1, tickCount - 1));
+      const label = appendSvg('text', {
+        x: xAt(index), y: 250, 'text-anchor': tick === 0 ? 'start' : tick === tickCount - 1 ? 'end' : 'middle',
+        fill: 'var(--wt-text-secondary)', 'font-size': 11,
+      });
+      label.textContent = new Intl.DateTimeFormat(undefined, hourly
+        ? { hour: 'numeric', timeZone: 'UTC' }
+        : { month: '2-digit', day: '2-digit', timeZone: 'UTC' }).format(points[index].time);
     }
     const summary = `${points.length} ${hourly ? 'hourly' : 'daily'} intervals · UTC`;
     const marker = document.createElementNS(ns, 'line');
     marker.setAttribute('y1', '12');
     marker.setAttribute('y2', '224');
     marker.setAttribute('stroke', 'var(--wt-text-secondary)');
-    marker.setAttribute('stroke-dasharray', '4 4');
     marker.setAttribute('visibility', 'hidden');
     svg.append(marker);
+    const dots = kinds.map((kind) => appendSvg('circle', {
+      r: 4, fill: `var(--${kind})`, stroke: 'var(--wt-text)', 'stroke-width': 2,
+      'vector-effect': 'non-scaling-stroke', visibility: 'hidden',
+    }));
 
     const formatter = new Intl.DateTimeFormat(undefined, {
-      month: 'short', day: 'numeric', hour: hourly ? 'numeric' : undefined, timeZone: 'UTC',
+      month: 'short', day: 'numeric', year: 'numeric', hour: hourly ? 'numeric' : undefined, timeZone: 'UTC',
     });
     let selected = points.findIndex((point) => point.time === selectedTime);
     const select = (index: number) => {
@@ -114,6 +151,8 @@ if (root) {
       if (index < 0) {
         selectedTime = undefined;
         marker.setAttribute('visibility', 'hidden');
+        dots.forEach((dot) => dot.setAttribute('visibility', 'hidden'));
+        tooltip.hidden = true;
         chartMessage.textContent = summary;
         return;
       }
@@ -123,7 +162,25 @@ if (root) {
       marker.setAttribute('x1', x);
       marker.setAttribute('x2', x);
       marker.setAttribute('visibility', 'visible');
-      chartMessage.textContent = `${formatter.format(point.time)} UTC · Human ${format(point.human)} · Agent ${format(point.agent)}`;
+      dots.forEach((dot, index) => {
+        dot.setAttribute('cx', x);
+        dot.setAttribute('cy', String(yAt(point[kinds[index]])));
+        dot.setAttribute('visibility', 'visible');
+      });
+      const date = `${formatter.format(point.time)} UTC`;
+      const total = `${format(point.human + point.agent)} total`;
+      const counts = make('div', '', total);
+      for (const kind of kinds) {
+        const dot = make('span', `dot ${kind}`, '');
+        dot.style.marginInlineStart = '.45rem';
+        counts.append(dot, `${format(point[kind])} ${kind}`);
+      }
+      tooltip.replaceChildren(make('div', '', date), counts);
+      const pointerPercent = Number(x) / svg.viewBox.baseVal.width * 100;
+      const offset = pointerPercent < 65 ? '+ .75rem' : '- 14.75rem';
+      tooltip.style.setProperty('--tooltip-x', `calc(${pointerPercent}% ${offset})`);
+      tooltip.hidden = false;
+      chartMessage.textContent = `${date} · ${total} · ${format(point.human)} human · ${format(point.agent)} agent`;
     };
     scrubTrend = (position) => {
       let index: number;

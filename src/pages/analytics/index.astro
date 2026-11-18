@@ -23,34 +23,34 @@ import Site from '../../layouts/Site.astro';
       <div class="analytics-periods" role="group" aria-label="Reading trend time range">
         <button type="button" data-period="24h" aria-pressed="false">24 hours</button><button type="button" data-period="7d" aria-pressed="false">7 days</button><button type="button" data-period="30d" aria-pressed="true">30 days</button><button type="button" data-period="60d" aria-pressed="false">60 days</button><button type="button" data-period="90d" aria-pressed="false">90 days</button><button type="button" data-period="year" aria-pressed="false">This year</button>
       </div>
-      <div class="analytics-panel analytics-chart"><svg id="reading-chart" viewBox="0 0 900 260" role="img" aria-label="Reading trend by date. Use the arrow keys to explore intervals." aria-describedby="chart-message" preserveAspectRatio="none">
+      <div class="analytics-panel analytics-chart"><div class="chart-plot"><svg id="reading-chart" viewBox="0 0 900 260" role="img" aria-label="Reading trend by date. Use the arrow keys to explore intervals." aria-describedby="chart-message" preserveAspectRatio="none">
           <g class="loading-rows" aria-hidden="true" fill="var(--placeholder)">
             {[12, 65, 118, 171, 224].map(y => <g><rect x="8" y={y - 3} width="20" height="6" rx="3"/><rect x="38" y={y} width="852" height="1"/></g>)}
             <rect x="38" y="244" width="45" height="7" rx="3"/><rect x="845" y="244" width="45" height="7" rx="3"/>
-          </g></svg><p id="chart-message" class="analytics-muted" aria-live="polite">Awaiting trend data.</p></div>
+          </g></svg><div id="chart-tooltip" class="chart-tooltip" aria-hidden="true" hidden></div></div><p id="chart-message" class="analytics-muted" aria-live="polite">Awaiting trend data.</p></div>
     </section>
 
     <section class="analytics-section" aria-labelledby="weekly-title">
       <div class="analytics-heading"><h2 id="weekly-title">Last 30 days</h2><span class="analytics-muted">Grouped by week · UTC</span></div>
-      <div class="analytics-panel analytics-table-wrap analytics-scroll" tabindex="0" role="region" aria-labelledby="weekly-title"><table><thead><tr><th scope="col">Week</th><th scope="col">Total</th><th scope="col">Human</th><th scope="col">Agent</th></tr></thead><tbody class="loading-rows" aria-hidden="true">
+      <div class="analytics-panel analytics-scroll-frame"><div class="analytics-table-wrap analytics-scroll" tabindex="0" role="region" aria-labelledby="weekly-title"><table><thead><tr><th scope="col">Week</th><th scope="col">Total</th><th scope="col">Human</th><th scope="col">Agent</th></tr></thead><tbody class="loading-rows" aria-hidden="true">
           {Array.from({ length: 5 }, () => <tr>{Array.from({ length: 4 }, () => <td><i></i></td>)}</tr>)}
-        </tbody><tbody id="weekly-rows"><tr><td colspan="4">See the analytics API for current counts.</td></tr></tbody></table></div>
+        </tbody><tbody id="weekly-rows"><tr><td colspan="4">See the analytics API for current counts.</td></tr></tbody></table></div></div>
     </section>
 
     <section class="analytics-section" aria-labelledby="pages-title">
       <div class="analytics-heading"><h2 id="pages-title">By page</h2><span class="analytics-muted">All-time aggregate</span></div>
-      <div id="page-rows" class="analytics-panel analytics-scroll" tabindex="0" role="region" aria-labelledby="pages-title">
+      <div class="analytics-panel analytics-scroll-frame"><div id="page-rows" class="analytics-scroll" tabindex="0" role="region" aria-labelledby="pages-title">
         <div class="loading-rows" aria-hidden="true">
           {[1, 2, 3].map(() => <div class="analytics-page-row"><div class="analytics-row-top"><i></i><i></i></div><div class="analytics-bar"></div><i class="row-caption"></i></div>)}
-        </div><p class="analytics-muted">Page reads will appear when analytics data is available.</p></div>
+        </div><p class="analytics-muted">Page reads will appear when analytics data is available.</p></div></div>
     </section>
 
     <section class="analytics-section" aria-labelledby="bots-title">
       <div class="analytics-heading"><h2 id="bots-title">AI agents &amp; bots</h2><span class="analytics-muted">Markdown reads · all-time aggregate</span></div>
-      <div id="bot-rows" class="analytics-panel analytics-scroll" tabindex="0" role="region" aria-labelledby="bots-title">
+      <div class="analytics-panel analytics-scroll-frame"><div id="bot-rows" class="analytics-scroll" tabindex="0" role="region" aria-labelledby="bots-title">
         <div class="loading-rows" aria-hidden="true">
           {[1, 2].map(() => <div class="analytics-bot-row analytics-row-top"><i></i><i></i></div>)}
-        </div><p class="analytics-muted">See the analytics API for current named-agent counts.</p></div>
+        </div><p class="analytics-muted">See the analytics API for current named-agent counts.</p></div></div>
       <p class="analytics-muted analytics-note">Agent names are identified from known user-agent labels when available. A Markdown request is counted as an agent even if its agent is unknown.</p>
     </section>
     <noscript>Live analytics require JavaScript. Markdown and HTML request counts are available through the site's analytics API when configured.</noscript>
@@ -75,8 +75,8 @@ import Site from '../../layouts/Site.astro';
   .analytics-share, :global(.analytics-bar) { border-radius: 999px; overflow: hidden; }
   .analytics-share span:first-child { background: var(--human); } .analytics-share span:last-child { background: var(--agent); }
   .analytics-legend { display: flex; flex-wrap: wrap; gap: 1.25rem; font-size: .85rem; margin: .6rem 0 0; }
-  .dot { display: inline-block; width: .6rem; height: .6rem; border-radius: 50%; margin-right: .35rem; background: var(--human); }
-  .dot.agent { background: var(--agent); }
+  .dot, .chart-tooltip :global(.dot) { display: inline-block; width: .6rem; height: .6rem; border-radius: 50%; margin-right: .35rem; background: var(--human); }
+  .dot.agent, .chart-tooltip :global(.dot.agent) { background: var(--agent); }
   .analytics-section { margin-top: 3.5rem; }
   .analytics-heading { display: flex; justify-content: space-between; align-items: baseline; gap: 1rem; flex-wrap: wrap; margin-bottom: 1rem; }
   .analytics-heading h2 { font-size: 1.35rem; font-weight: 500; margin: 0; }
@@ -85,13 +85,22 @@ import Site from '../../layouts/Site.astro';
   .analytics-periods button { border-radius: .6rem; border: 0; background: transparent; color: var(--wt-text); padding: .55rem .7rem; font: inherit; font-size: .8rem; cursor: pointer; }
   .analytics-periods button[aria-pressed="true"] { background: var(--wt-surface); }
   .analytics-periods button:focus-visible { outline: 2px solid var(--wt-link); outline-offset: 2px; }
+  .chart-plot { position: relative; }
+  .chart-tooltip {
+    position: absolute; top: 11%; left: clamp(0px, var(--tooltip-x), calc(100% - min(14rem, 100%)));
+    width: min(14rem, 100%); padding: .45rem .65rem; pointer-events: none;
+    border: 1px solid var(--wt-border); border-radius: .5rem;
+    background: var(--wt-bg); color: var(--wt-text); font-size: .875rem;
+  }
+  .chart-tooltip div + div { margin-top: .15rem; }
   .analytics-chart svg { width: 100%; height: 17rem; display: block; overflow: visible; }
   #reading-chart[tabindex] { cursor: crosshair; touch-action: pan-y pinch-zoom; user-select: none; }
   #reading-chart:focus-visible { outline: 2px solid var(--wt-link); outline-offset: 3px; }
   .analytics-chart p { text-align: center; margin: .5rem 0 0; }
-  .analytics-scroll { scrollbar-width: none; }
+  .analytics-scroll-frame { padding: 0; }
+  .analytics-scroll { padding: 1.5rem; overflow: auto; scrollbar-width: none; border-radius: inherit; }
   .analytics-scroll::-webkit-scrollbar { display: none; }
-  .analytics-scroll:focus-visible { outline: 2px solid var(--wt-link); outline-offset: 3px; }
+  .analytics-scroll-frame:has(> .analytics-scroll:focus-visible) { outline: 2px solid var(--wt-link); outline-offset: 3px; }
   .analytics-scroll[data-overflow] {
     mask-image:
       linear-gradient(to bottom, transparent, black var(--fade-top, 0px),
@@ -109,7 +118,7 @@ import Site from '../../layouts/Site.astro';
   th:first-child { width: 49%; }
   th, #weekly-rows :global(td) { padding: .75rem 1rem; border-bottom: 1px solid var(--line); white-space: nowrap; }
   th { color: var(--wt-text-secondary); font-weight: 400; } #weekly-rows :global(tr:last-child td) { border-bottom: 0; }
-  .analytics-panel > p { margin: 0; }
+  .analytics-panel > p, .analytics-scroll > :global(p) { margin: 0; }
   .analytics-note { margin: .75rem 0 0; }
   :global(.analytics-page-row + .analytics-page-row), :global(.analytics-bot-row + .analytics-bot-row) { border-top: 1px solid var(--line); margin-top: 1rem; padding-top: 1rem; }
   :global(.analytics-row-top) { display: flex; justify-content: space-between; gap: 1rem; flex-wrap: wrap; }
@@ -117,10 +126,10 @@ import Site from '../../layouts/Site.astro';
   :global(.analytics-bar-human) { background: var(--human); } :global(.analytics-bar-agent) { background: var(--agent); }
   :global(.analytics-row-sub) { color: var(--wt-text-secondary); font-size: .8rem; }
   /* Reserve the same space for pending, empty, and populated responses. */
-  .analytics-table-wrap { height: 21rem; overflow: auto; }
-  #page-rows, #bot-rows { overflow: auto; overflow-wrap: anywhere; }
-  #page-rows { height: 21rem; }
-  #bot-rows { height: 9rem; }
+  .analytics-table-wrap { height: calc(21rem - 2px); }
+  #page-rows, #bot-rows { overflow-wrap: anywhere; }
+  #page-rows { height: calc(21rem - 2px); }
+  #bot-rows { height: calc(9rem - 2px); }
   #chart-message, #analytics-status { min-height: 1lh; }
   .loading-rows { display: none; }
   [data-loading] .loading-rows { display: block; }
