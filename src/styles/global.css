@@ -158,6 +158,7 @@ html[data-theme="light"] .home-hero {
   color: var(--wt-text);
 }
 html[data-theme="light"] body:has(.home-hero) .brand { color: var(--wt-text); }
+html[data-theme="dark"] body:has(.home-hero) .site-header { background: linear-gradient(to bottom, rgba(0, 0, 0, 0.92), rgba(0, 0, 0, 0.65) 65%, transparent); }
 html[data-theme="light"] body:has(.home-hero) .site-header { background: linear-gradient(to bottom, rgba(255, 255, 255, 0.96), rgba(255, 255, 255, 0.65) 70%, transparent); }
 html[data-theme="light"] body:has(.home-hero) .site-nav a { color: var(--wt-text); }
 html[data-theme="light"] body:has(.home-hero) .site-nav a:hover { color: var(--wt-link); }
@@ -284,7 +285,6 @@ figure.chart figcaption { margin-top: 0.75rem; font-size: 0.9rem; color: var(--w
 /* Footer */
 .site-footer { padding: 7rem 0 2.5rem; font-size: 10px; color: var(--wt-text-secondary); }
 .footer-sitemap { display: flex; flex-wrap: wrap; gap: 0.5rem 1rem; margin-bottom: 1.1rem; }
-.footer-sitemap strong { color: var(--wt-text); }
 .footer-sitemap a { color: inherit; }
 .footer-actions { display: flex; align-items: stretch; gap: 0.5rem; }
 .github-button { display: inline-flex; align-items: center; justify-content: center; text-decoration: none; }
@@ -305,7 +305,7 @@ figure.chart figcaption { margin-top: 0.75rem; font-size: 0.9rem; color: var(--w
 @media (max-width: 40rem) {
   .home-hero, html[data-theme="light"] .home-hero { background: none; color: var(--wt-text); padding-bottom: 0; }
   body:has(.home-hero) .brand { color: var(--wt-text); }
-  html[data-theme="light"] body:has(.home-hero) .site-header { background: none; }
+  html:is([data-theme="light"], [data-theme="dark"]) body:has(.home-hero) .site-header { background: none; }
   body:has(.home-hero) .site-nav a { color: var(--wt-text-secondary); }
   body:has(.home-hero) .site-nav a:hover { color: var(--wt-link); }
   h1 { font-size: 1.9rem; }
