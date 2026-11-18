@@ -1,4 +1,7 @@
 ---
+import '@fontsource/inter/400.css';
+import '@fontsource/inter/600.css';
+import '@fontsource/inter/700.css';
 import '../styles/global.css';
 
 interface Props {
@@ -15,14 +18,24 @@ const fullTitle = title === 'WhiteThroated' ? title : `${title} — WhiteThroate
   <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <link rel="icon" type="image/png" href="/whitethroated-logo.png" />
     <title>{fullTitle}</title>
     {description && <meta name="description" content={description} />}
     <meta name="color-scheme" content="light dark" />
+    <script is:inline>
+      try {
+        var t = localStorage.getItem('wt-theme');
+        if (t !== 'light' && t !== 'dark') {
+          t = window.matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light';
+        }
+        document.documentElement.dataset.theme = t;
+      } catch (e) { /* storage unavailable: fall through to light */ }
+    </script>
   </head>
   <body>
     <header class="site-header">
       <div class="wrap-wide">
-        <a class="brand" href="/">WhiteThroated</a>
+        <a class="brand" href="/"><img src="/whitethroated-logo.png" alt="" />WhiteThroated</a>
         <nav class="site-nav" aria-label="Primary">
           <a href="/results/" aria-current={current === 'results' ? 'page' : undefined}>Results</a>
           <a href="/methodology/" aria-current={current === 'methodology' ? 'page' : undefined}>Methodology</a>
@@ -35,9 +48,64 @@ const fullTitle = title === 'WhiteThroated' ? title : `${title} — WhiteThroate
     </main>
     <footer class="site-footer">
       <div class={wide ? 'wrap-wide' : 'wrap'}>
+        <p>
+          <strong>Honest status: the performance goal is not achieved.</strong> Measured evidence shows
+          decisive p50 wins against several controls but material tail-latency gaps (p90/p99 and extreme
+          tails) that remain under investigation. VM results do not establish bare-metal results, and a
+          green correctness suite is not proof of the performance goal. See the{' '}
+          <a href="/results/">results</a>, where tradeoffs and open investigations sit beside every win.
+        </p>
         <p>WhiteThroated is an experimental pre-alpha Swift web framework. Every figure on this site carries provenance; see the methodology and reports pages.</p>
+        <p>Swift and the Swift logo are trademarks of Apple Inc.</p>
         <p>Site data pack: framework snapshot <code>2b3493869803eaa8b3f78bc2bd26c86c5c8c1e8f</code> (2026-11-18).</p>
+        <nav class="footer-sitemap" aria-label="Sitemap">
+          <strong>Sitemap</strong>
+          <a href="/">Home</a>
+          <a href="/results/">Results</a>
+          <a href="/methodology/">Methodology</a>
+          <a href="/reports/">Reports</a>
+          <a href="/reports/tier1-default-2026-10-18/">Tier 1 validation report</a>
+        </nav>
+        <div class="footer-actions">
+          <button type="button" id="theme-toggle" class="btn">Theme: system</button>
+          <a class="btn github-button" href="https://github.com/whitethroated" aria-label="GitHub">
+            <svg viewBox="0 0 24 24" aria-hidden="true" fill="currentColor"><path d="M12 .5a11.5 11.5 0 0 0-3.64 22.41c.58.11.79-.25.79-.56v-2.23c-3.2.7-3.88-1.36-3.88-1.36-.52-1.33-1.28-1.68-1.28-1.68-1.05-.72.08-.7.08-.7 1.16.08 1.77 1.19 1.77 1.19 1.03 1.77 2.7 1.26 3.36.96.1-.75.4-1.26.73-1.55-2.56-.29-5.25-1.28-5.25-5.69 0-1.26.45-2.29 1.19-3.09-.12-.29-.52-1.46.11-3.04 0 0 .97-.31 3.16 1.18a11 11 0 0 1 5.76 0c2.2-1.49 3.16-1.18 3.16-1.18.63 1.58.23 2.75.11 3.04.74.8 1.19 1.83 1.19 3.09 0 4.42-2.69 5.39-5.26 5.68.42.36.78 1.06.78 2.13v3.17c0 .31.21.68.8.56A11.5 11.5 0 0 0 12 .5Z"/></svg>
+          </a>
+        </div>
       </div>
     </footer>
+    <script is:inline>
+      (function () {
+        var btn = document.getElementById('theme-toggle');
+        if (!btn) return;
+        var meta = document.querySelector('meta[name="color-scheme"]');
+        var mq = window.matchMedia('(prefers-color-scheme: dark)');
+        function stored() {
+          try { return localStorage.getItem('wt-theme'); } catch (e) { return null; }
+        }
+        function system() { return mq.matches ? 'dark' : 'light'; }
+        function current() { return stored() || 'system'; }
+        function apply() {
+          var mode = current();
+          var effective = mode === 'system' ? system() : mode;
+          document.documentElement.dataset.theme = effective;
+          if (meta) meta.content = effective;
+          btn.textContent = 'Theme: ' + mode;
+        }
+        btn.addEventListener('click', function () {
+          var order = ['system', 'light', 'dark'];
+          var next = order[(order.indexOf(current()) + 1) % order.length];
+          try {
+            if (next === 'system') localStorage.removeItem('wt-theme');
+            else localStorage.setItem('wt-theme', next);
+          } catch (e) { /* ignore */ }
+          apply();
+        });
+        if (mq.addEventListener) {
+          mq.addEventListener('change', function () { if (!stored()) apply(); });
+        }
+        apply();
+      })();
+    </script>
   </body>
 </html>

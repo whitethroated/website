@@ -1,11 +1,13 @@
 # WhiteThroated site color palette
 
 Method: original proposal in fresh-palette mode (no extraction from any
-existing website). All RGB/HSL values and WCAG ratios were computed with the
-`website-color-palette` skill helper script (`colors` and `contrast` modes)
-on 2026-11-18. The installed skill file only documents extraction mode, so
-this report follows the task's fresh-palette workflow and the skill's output
-schema instead; no page was downloaded and no `extract` run was performed.
+existing website), revised 2026-11-18 to a user-supplied achromatic +
+blue/orange palette applied as a values-only change. All RGB/HSL values and
+WCAG ratios were computed with the `website-color-palette` skill helper
+script (`colors` and `contrast` modes). The installed skill file only
+documents extraction mode, so this report follows the task's fresh-palette
+workflow and the skill's output schema instead; no page was downloaded and
+no `extract` run was performed.
 
 Token source of truth: [color-palette.json](./color-palette.json). Pages
 reference these tokens through CSS variables only.
@@ -14,152 +16,167 @@ reference these tokens through CSS variables only.
 
 | Name | HEX | RGB | HSL | Role |
 |---|---|---|---|---|
-| Deep Pine | `#175c3a` | 23, 92, 58 | 150, 60, 23 | Brand green; chart bars, links on light |
-| Pine Light | `#7fcfa0` | 127, 207, 160 | 145, 45, 65 | Brand green on dark; chart bars, links |
+| Signal Blue | `#0C4FEC` | 12, 79, 236 | 222, 90, 49 | Brand blue; chart bars, links on light |
+| Signal Blue Light | `#60A5FA` | 96, 165, 250 | 213, 94, 68 | Brand blue on dark; chart bars, links |
 
 ## Link and interactive colors
 
-Links reuse the signature greens: Deep Pine on light, Pine Light on dark.
-No separate link hue exists, so interactive text is always recognizable.
+Links reuse the signature blues: Signal Blue on light, Signal Blue Light on
+dark. No separate link hue exists, so interactive text is always recognizable.
 
 ## Foundation ramp
 
 | Name | HEX | RGB | HSL | Typical role |
 |---|---|---|---|---|
-| Paper | `#ffffff` | 255, 255, 255 | 0, 0, 100 | Light page background |
-| Mist | `#eef2f0` | 238, 242, 240 | 150, 13, 94 | Light surface, table headers |
-| Fog Line | `#d8dfdc` | 216, 223, 220 | 154, 10, 86 | Light borders (decorative) |
-| Ink | `#17201d` | 23, 32, 29 | 160, 16, 11 | Light primary text |
-| Slate Note | `#47534e` | 71, 83, 78 | 155, 8, 30 | Light secondary text |
-| Night Pine | `#0f1513` | 15, 21, 19 | 160, 17, 7 | Dark page background |
-| Night Surface | `#1a2220` | 26, 34, 32 | 165, 13, 12 | Dark surface, table headers |
-| Night Line | `#2e3a36` | 46, 58, 54 | 160, 12, 20 | Dark borders (decorative) |
-| Night Ink | `#e9eeec` | 233, 238, 236 | 156, 13, 92 | Dark primary text |
-| Night Note | `#a7b4af` | 167, 180, 175 | 157, 8, 68 | Dark secondary text |
+| Paper | `#FFFFFF` | 255, 255, 255 | 0, 0, 100 | Light page background |
+| Mist | `#F5F5F5` | 245, 245, 245 | 0, 0, 96 | Light surface, table headers |
+| Fog Line | `#E5E5E5` | 229, 229, 229 | 0, 0, 90 | Light borders (decorative) |
+| Ink | `#171717` | 23, 23, 23 | 0, 0, 9 | Light primary text |
+| Gray Note | `#737373` | 115, 115, 115 | 0, 0, 45 | Light secondary text |
+| Night Gray | `#1F1F1F` | 31, 31, 31 | 0, 0, 12 | Dark page background |
+| Night Surface | `#262626` | 38, 38, 38 | 0, 0, 15 | Dark surface, table headers |
+| Night Line | `#404040` | 64, 64, 64 | 0, 0, 25 | Dark borders (decorative) |
+| Night Ink | `#EDEDED` | 237, 237, 237 | 0, 0, 93 | Dark primary text |
+| Night Note | `#A3A3A3` | 163, 163, 163 | 0, 0, 64 | Dark secondary text |
+
+Every neutral is achromatic (0% saturation).
 
 ## Accent and gate colors
 
 | Name | HEX | RGB | HSL | Role |
 |---|---|---|---|---|
-| Amber Text | `#9a5b00` | 154, 91, 0 | 35, 100, 30 | Highlight and mixed-gate text on light |
-| Highlight Tint | `#fdf3e0` | 253, 243, 224 | 39, 88, 94 | Highlight wash on light |
-| Amber Bright | `#e8a33d` | 232, 163, 61 | 36, 79, 57 | Highlight and mixed-gate text on dark |
-| Highlight Shade | `#3a2c12` | 58, 44, 18 | 39, 53, 15 | Highlight wash on dark |
-| Gate Pass | `#177245` | 23, 114, 69 | 150, 66, 27 | `pass` text and badge fill on light |
-| Gate Pass Tint | `#e6f4ec` | 230, 244, 236 | 146, 39, 93 | `pass` badge wash on light |
-| Gate Mixed Tint | `#fdf0dc` | 253, 240, 220 | 36, 89, 93 | `mixed` badge wash on light |
-| Gate Rejected | `#b3261e` | 179, 38, 30 | 3, 71, 41 | `rejected` text and badge fill on light |
-| Gate Rejected Tint | `#fbe9e7` | 251, 233, 231 | 6, 71, 95 | `rejected` badge wash on light |
-| Gate Pass Bright | `#7fd6a4` | 127, 214, 164 | 146, 51, 67 | `pass` text on dark |
-| Gate Pass Shade | `#123626` | 18, 54, 38 | 153, 50, 14 | `pass` badge wash on dark |
-| Gate Mixed Shade | `#3a2a10` | 58, 42, 16 | 37, 57, 15 | `mixed` badge wash on dark |
-| Gate Rejected Soft | `#f2a49e` | 242, 164, 158 | 4, 76, 78 | `rejected` text on dark |
-| Gate Rejected Shade | `#3d1512` | 61, 21, 18 | 4, 54, 15 | `rejected` badge wash on dark |
+| Ember Text | `#B15B10` | 177, 91, 16 | 28, 83, 38 | Highlight and mixed-gate text on light |
+| Highlight Tint | `#FDF4EC` | 253, 244, 236 | 28, 81, 96 | Highlight wash on light |
+| Ember Orange | `#ED8F3D` | 237, 143, 61 | 28, 83, 58 | Highlight and mixed-gate text on dark |
+| Highlight Shade | `#503A26` | 80, 58, 38 | 29, 36, 23 | Highlight wash on dark |
+| Gate Pass | `#0C4FEC` | 12, 79, 236 | 222, 90, 49 | `pass` text and badge fill on light |
+| Gate Pass Tint | `#E7EDFD` | 231, 237, 253 | 224, 85, 95 | `pass` badge wash on light |
+| Gate Mixed Tint | `#FDF4EC` | 253, 244, 236 | 28, 81, 96 | `mixed` badge wash on light |
+| Gate Rejected | `#B3261E` | 179, 38, 30 | 3, 71, 41 | `rejected` text and badge fill on light |
+| Gate Rejected Tint | `#F7E9E8` | 247, 233, 232 | 4, 48, 94 | `rejected` badge wash on light |
+| Gate Pass Bright | `#60A5FA` | 96, 165, 250 | 213, 94, 68 | `pass` text on dark |
+| Gate Pass Shade | `#2F3F54` | 47, 63, 84 | 214, 28, 26 | `pass` badge wash on dark |
+| Gate Mixed Shade | `#503A26` | 80, 58, 38 | 29, 36, 23 | `mixed` badge wash on dark |
+| Gate Rejected Soft | `#F2A49E` | 242, 164, 158 | 4, 76, 78 | `rejected` text on dark |
+| Gate Rejected Shade | `#523F3D` | 82, 63, 61 | 6, 15, 28 | `rejected` badge wash on dark |
+
+Raw `#ED8F3D` is never light-mode text (2.44:1 on white, fail); light mode
+uses Ember Text `#B15B10` (same hue 28, 4.80:1). Raw `#0C4FEC` is never
+dark-mode text (2.63:1 on `#1F1F1F`, fail); dark mode uses `#60A5FA` (6.48:1).
 
 ## Light and dark mode mapping
 
 | Role | Light | Dark |
 |---|---|---|
-| Page background | Paper `#ffffff` | Night Pine `#0f1513` |
-| Raised surface | Mist `#eef2f0` | Night Surface `#1a2220` |
-| Borders | Fog Line `#d8dfdc` | Night Line `#2e3a36` |
-| Primary text | Ink `#17201d` | Night Ink `#e9eeec` |
-| Secondary text | Slate Note `#47534e` | Night Note `#a7b4af` |
-| Links | Deep Pine `#175c3a` | Pine Light `#7fcfa0` |
-| Highlight text | Amber Text `#9a5b00` | Amber Bright `#e8a33d` |
-| Highlight wash | Highlight Tint `#fdf3e0` | Highlight Shade `#3a2c12` |
+| Page background | Paper `#FFFFFF` | Night Gray `#1F1F1F` |
+| Raised surface | Mist `#F5F5F5` | Night Surface `#262626` |
+| Borders | Fog Line `#E5E5E5` | Night Line `#404040` |
+| Primary text | Ink `#171717` | Night Ink `#EDEDED` |
+| Secondary text | Gray Note `#737373` | Night Note `#A3A3A3` |
+| Links | Signal Blue `#0C4FEC` | Signal Blue Light `#60A5FA` |
+| Highlight text | Ember Text `#B15B10` | Ember Orange `#ED8F3D` |
+| Highlight wash | Highlight Tint `#FDF4EC` | Highlight Shade `#503A26` |
 | `pass` | Gate Pass on Pass Tint | Pass Bright on Pass Shade |
-| `mixed` | Amber Text on Mixed Tint | Amber Bright on Mixed Shade |
+| `mixed` | Ember Text on Mixed Tint | Ember Orange on Mixed Shade |
 | `rejected` | Gate Rejected on Rejected Tint | Rejected Soft on Rejected Shade |
 
-Dark mode follows `prefers-color-scheme`; there is no manual toggle.
+The default follows `prefers-color-scheme`; a footer button cycles system →
+light → dark, persisted in `localStorage` (`wt-theme`) and applied via
+`data-theme` on `<html>`. The dark block in `src/styles/global.css` mirrors
+these tokens exactly.
 
 ## Harmony analysis
 
-Cool pine greens (hue ~150) carry structure, links, and pass states, while a
-warm amber family (hue ~36, about 114 degrees from pine) carries highlights
-and mixed states. Neutrals are a near-monochrome cool green-gray ramp, so the
-two chromatic families stay legible. Gate red (hue ~4) is reserved for
-rejected states only: hue carries verdict meaning and is never decorative.
+Achromatic neutrals (0% saturation) carry every surface and all body text.
+Exactly one chromatic pair sits on top: signal blue (hue 222) as primary,
+links, and pass states, and ember orange (hue 28, near-complementary at 194
+degrees apart) as the single warm accent for highlights and mixed states.
+Gate red (hue 3–6) is reserved for rejected states only: hue carries verdict
+meaning and is never decorative.
 
 ## WCAG contrast results
 
-Every text/background pair meets AA; most reach AAA. No sub-AA pair ships,
-so no justification is needed. Border colors are decorative and ungraded.
+All text on main backgrounds meets AA. Four wash/surface pairs are sub-AA
+(AA-large); they are graded honestly below and justified after the tables.
 
 Light mode:
 
 | Pair | Ratio | Grade |
 |---|---|---|
-| Ink / Paper | 16.66 | AAA |
-| Slate Note / Paper | 8.03 | AAA |
-| Deep Pine / Paper | 7.99 | AAA |
-| Amber Text / Paper | 5.43 | AA |
-| Ink / Mist | 14.75 | AAA |
-| Slate Note / Mist | 7.11 | AAA |
-| Deep Pine / Mist | 7.07 | AAA |
-| Ink / Highlight Tint | 15.13 | AAA |
-| White / Gate Pass | 5.95 | AA |
-| White / Amber Text | 5.43 | AA |
+| Ink / Paper | 17.93 | AAA |
+| Gray Note / Paper | 4.74 | AA |
+| Signal Blue / Paper | 6.28 | AA |
+| Ember Text / Paper | 4.80 | AA |
+| Ink / Mist | 16.44 | AAA |
+| Gray Note / Mist | 4.35 | AA-large |
+| Signal Blue / Mist | 5.76 | AA |
+| Ink / Highlight Tint | 16.50 | AAA |
+| White / Gate Pass | 6.28 | AA |
+| White / Ember Text | 4.80 | AA |
 | White / Gate Rejected | 6.54 | AA |
-| Gate Pass / Pass Tint | 5.25 | AA |
-| Amber Text / Mixed Tint | 4.82 | AA |
-| Gate Rejected / Rejected Tint | 5.58 | AA |
+| Gate Pass / Pass Tint | 5.36 | AA |
+| Ember Text / Mixed Tint | 4.42 | AA-large |
+| Gate Rejected / Rejected Tint | 5.53 | AA |
 
 Dark mode:
 
 | Pair | Ratio | Grade |
 |---|---|---|
-| Night Ink / Night Pine | 15.75 | AAA |
-| Night Note / Night Pine | 8.61 | AAA |
-| Pine Light / Night Pine | 9.97 | AAA |
-| Amber Bright / Night Pine | 8.56 | AAA |
-| Night Ink / Night Surface | 13.84 | AAA |
-| Night Note / Night Surface | 7.57 | AAA |
-| Pine Light / Night Surface | 8.76 | AAA |
-| Pass Bright / Pass Shade | 7.62 | AAA |
-| Amber Bright / Mixed Shade | 6.41 | AA |
-| Rejected Soft / Rejected Shade | 8.05 | AAA |
-| Amber Bright / Highlight Shade | 6.29 | AA |
+| Night Ink / Night Gray | 14.08 | AAA |
+| Night Note / Night Gray | 6.53 | AA |
+| Signal Blue Light / Night Gray | 6.48 | AA |
+| Ember Orange / Night Gray | 6.75 | AA |
+| Night Ink / Night Surface | 12.93 | AAA |
+| Night Note / Night Surface | 6.00 | AA |
+| Signal Blue Light / Night Surface | 5.95 | AA |
+| Pass Bright / Pass Shade | 4.21 | AA-large |
+| Ember Orange / Mixed Shade | 4.35 | AA-large |
+| Rejected Soft / Rejected Shade | 4.95 | AA |
+
+Sub-AA justification (values are fixed by the supplied palette, so these
+pairs are justified rather than re-derived): Gray Note on Mist (4.35) is
+used only for table captions beside AAA-rated body text; the three badge
+pairs — Ember Text on Mixed Tint (4.42), Pass Bright on Pass Shade (4.21),
+Ember Orange on Mixed Shade (4.35) — are bold `gate: …` labels that always
+appear next to the full verdict paragraph at AAA. All four sit within 0.3
+of the 4.5 threshold; no pair fails.
 
 ## Design tokens as CSS variables
 
 ```css
 :root {
   --wt-bg: #ffffff;
-  --wt-surface: #eef2f0;
-  --wt-border: #d8dfdc;
-  --wt-text: #17201d;
-  --wt-text-secondary: #47534e;
-  --wt-link: #175c3a;
-  --wt-signature: #175c3a;
-  --wt-highlight-text: #9a5b00;
-  --wt-highlight-wash: #fdf3e0;
-  --wt-pass: #177245;
-  --wt-pass-wash: #e6f4ec;
-  --wt-mixed: #9a5b00;
-  --wt-mixed-wash: #fdf0dc;
+  --wt-surface: #f5f5f5;
+  --wt-border: #e5e5e5;
+  --wt-text: #171717;
+  --wt-text-secondary: #737373;
+  --wt-link: #0c4fec;
+  --wt-signature: #0c4fec;
+  --wt-highlight-text: #b15b10;
+  --wt-highlight-wash: #fdf4ec;
+  --wt-pass: #0c4fec;
+  --wt-pass-wash: #e7edfd;
+  --wt-mixed: #b15b10;
+  --wt-mixed-wash: #fdf4ec;
   --wt-rejected: #b3261e;
-  --wt-rejected-wash: #fbe9e7;
+  --wt-rejected-wash: #f7e9e8;
 }
-@media (prefers-color-scheme: dark) {
-  :root {
-    --wt-bg: #0f1513;
-    --wt-surface: #1a2220;
-    --wt-border: #2e3a36;
-    --wt-text: #e9eeec;
-    --wt-text-secondary: #a7b4af;
-    --wt-link: #7fcfa0;
-    --wt-signature: #7fcfa0;
-    --wt-highlight-text: #e8a33d;
-    --wt-highlight-wash: #3a2c12;
-    --wt-pass: #7fd6a4;
-    --wt-pass-wash: #123626;
-    --wt-mixed: #e8a33d;
-    --wt-mixed-wash: #3a2a10;
-    --wt-rejected: #f2a49e;
-    --wt-rejected-wash: #3d1512;
-  }
+html[data-theme="dark"] {
+  --wt-bg: #1f1f1f;
+  --wt-surface: #262626;
+  --wt-border: #404040;
+  --wt-text: #ededed;
+  --wt-text-secondary: #a3a3a3;
+  --wt-link: #60a5fa;
+  --wt-signature: #60a5fa;
+  --wt-highlight-text: #ed8f3d;
+  --wt-highlight-wash: #503a26;
+  --wt-pass: #60a5fa;
+  --wt-pass-wash: #2f3f54;
+  --wt-mixed: #ed8f3d;
+  --wt-mixed-wash: #503a26;
+  --wt-rejected: #f2a49e;
+  --wt-rejected-wash: #523f3d;
 }
 ```
 
@@ -167,6 +184,6 @@ Dark mode:
 
 - This palette is newly proposed for a site with no live URL yet, so there
   was no production CSS to extract or audit.
-- Chart bars reuse signature greens; their pair ratios are covered by the
+- Chart bars reuse signature blues; their pair ratios are covered by the
   link/signature rows above.
 - Border colors are decorative dividers, not text, and carry no grade.

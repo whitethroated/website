@@ -5,67 +5,81 @@ import Site from '../layouts/Site.astro';
   title="WhiteThroated"
   description="WhiteThroated is an experimental high-performance web framework written entirely in Swift. Pre-alpha."
 >
+  <section class="home-hero">
   <h1>WhiteThroated</h1>
   <p class="lede">
-    WhiteThroated is an experimental high-performance web framework written entirely in Swift.
+    WhiteThroated is an experimental high-performance web framework written entirely in <span class="swift-name"><img src="https://cdn.simpleicons.org/swift/F05138" alt="" />Swift</span>.
     It is pre-alpha: API compatibility is intentionally secondary to establishing a fast,
     measurable runtime architecture. Expect breaking changes before 1.0 and pin exact releases.
   </p>
+  </section>
 
-  <div class="callout callout-warn" role="note" aria-label="Performance status">
-    <p>
-      <strong>Honest status: the performance goal is not achieved.</strong> Measured evidence shows
-      decisive p50 wins against several controls but material tail-latency gaps (p90/p99 and extreme
-      tails) that remain under investigation. VM results do not establish bare-metal results, and a
-      green correctness suite is not proof of the performance goal. See the
-      <a href="/results/">results</a>, where tradeoffs and open investigations sit beside every win.
-    </p>
+  <div class="accordion-group">
+    <details class="accordion" name="landing-sections">
+      <summary><h2>Two non-negotiable goals</h2></summary>
+      <div class="accordion-panel">
+        <ol>
+          <li>Express.js-level ergonomics for application developers.</li>
+          <li>
+            Runtime overhead low enough to compete with the fastest practical server frameworks, with
+            Actix Web as an external performance reference and raw SwiftNIO as the lower-bound control.
+          </li>
+        </ol>
+      </div>
+    </details>
+
+    <details class="accordion" name="landing-sections">
+      <summary><h2>How it is built</h2></summary>
+      <div class="accordion-panel">
+        <p>
+          Application code uses the <code>WhiteThroated</code> module (routes, middleware,
+          Request/Response). Execution runs on <code>WhiteThroatedRuntime</code>, an internal module on
+          SwiftNIO that owns the HTTP/1.1 pipeline, dispatch state machine, and response writer.
+          Configuration is mutable during setup and frozen once serving begins. Four responder paths exist
+          so cheap routes never pay for features they don't use: prepared immutable responses, synchronous
+          handlers, event-loop-native futures, and opt-in async/await. The default transport is Tier 1
+          HTTP/1 with a stock SwiftNIO fallback for request-streaming apps.
+        </p>
+      </div>
+    </details>
+
+    <details class="accordion" name="landing-sections">
+      <summary><h2>The target is overhead, not a number</h2></summary>
+      <div class="accordion-panel">
+        <p>
+          The target is not a requests-per-second number. The target is to minimize framework overhead
+          until Swift runtime, SwiftNIO, kernel, and hardware costs dominate. The honest comparison order
+          is: same WhiteThroated path before/after, then equivalent raw SwiftNIO, then responder modes,
+          then external frameworks only after Swift-side overhead is understood.
+        </p>
+      </div>
+    </details>
+
+    <details class="accordion" name="landing-sections">
+      <summary><h2>What WhiteThroated offers</h2></summary>
+      <div class="accordion-panel">
+        <ul>
+          <li>Express-inspired routing with synchronous, future, and async handler styles.</li>
+          <li>Prepared responses that precompute immutable content at setup.</li>
+          <li>Benchmarks against raw SwiftNIO and external controls, with full methodology published.</li>
+        </ul>
+        <p>
+          What it does not offer: superlatives without a cited, reproducible comparison. No
+          best-case single-metric configuration is ever presented as winning every metric.
+        </p>
+      </div>
+    </details>
+
+    <details class="accordion" name="landing-sections">
+      <summary><h2>Benchmarks with provenance</h2></summary>
+      <div class="accordion-panel">
+        <p>
+          Every published figure carries its framework commit, toolchain, OS and CPU, load-generator
+          identity, measurement date, gate status, and a link to archived raw data. Start with the
+          <a href="/results/">results matrix</a>, read <a href="/methodology/">how benchmarks are run and judged</a>,
+          or browse the <a href="/reports/">report archive</a>.
+        </p>
+      </div>
+    </details>
   </div>
-
-  <h2>Two non-negotiable goals</h2>
-  <ol>
-    <li>Express.js-level ergonomics for application developers.</li>
-    <li>
-      Runtime overhead low enough to compete with the fastest practical server frameworks, with
-      Actix Web as an external performance reference and raw SwiftNIO as the lower-bound control.
-    </li>
-  </ol>
-
-  <h2>How it is built</h2>
-  <p>
-    Application code uses the <code>WhiteThroated</code> module (routes, middleware,
-    Request/Response). Execution runs on <code>WhiteThroatedRuntime</code>, an internal module on
-    SwiftNIO that owns the HTTP/1.1 pipeline, dispatch state machine, and response writer.
-    Configuration is mutable during setup and frozen once serving begins. Four responder paths exist
-    so cheap routes never pay for features they don't use: prepared immutable responses, synchronous
-    handlers, event-loop-native futures, and opt-in async/await. The default transport is Tier 1
-    HTTP/1 with a stock SwiftNIO fallback for request-streaming apps.
-  </p>
-
-  <h2>The target is overhead, not a number</h2>
-  <p>
-    The target is not a requests-per-second number. The target is to minimize framework overhead
-    until Swift runtime, SwiftNIO, kernel, and hardware costs dominate. The honest comparison order
-    is: same WhiteThroated path before/after, then equivalent raw SwiftNIO, then responder modes,
-    then external frameworks only after Swift-side overhead is understood.
-  </p>
-
-  <h2>What WhiteThroated offers</h2>
-  <ul>
-    <li>Express-inspired routing with synchronous, future, and async handler styles.</li>
-    <li>Prepared responses that precompute immutable content at setup.</li>
-    <li>Benchmarks against raw SwiftNIO and external controls, with full methodology published.</li>
-  </ul>
-  <p>
-    What it does not offer: superlatives without a cited, reproducible comparison. No
-    best-case single-metric configuration is ever presented as winning every metric.
-  </p>
-
-  <h2>Benchmarks with provenance</h2>
-  <p>
-    Every published figure carries its framework commit, toolchain, OS and CPU, load-generator
-    identity, measurement date, gate status, and a link to archived raw data. Start with the
-    <a href="/results/">results matrix</a>, read <a href="/methodology/">how benchmarks are run and judged</a>,
-    or browse the <a href="/reports/">report archive</a>.
-  </p>
 </Site>
