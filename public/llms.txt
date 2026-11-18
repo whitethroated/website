@@ -1,0 +1,29 @@
+# WhiteThroated
+
+> WhiteThroated is an experimental pre-alpha web framework written in Swift and built on SwiftNIO. Its performance goal is not yet achieved; published results include limitations and provenance.
+
+## Site pages
+
+- [Home](https://whitethroated.com/): Framework goals, architecture, and current status.
+- [Results](https://whitethroated.com/results/): Benchmark matrices, verdicts, and per-cell provenance.
+- [Methodology](https://whitethroated.com/methodology/): Benchmark procedures, comparisons, and limitations.
+- [Report archive](https://whitethroated.com/reports): Published reports, errata, and raw-data links.
+- [Analytics](https://whitethroated.com/analytics): Page reads classified by requested URL.
+
+## Markdown versions
+
+- [Home](https://whitethroated.com/index.md)
+- [Results](https://whitethroated.com/results.md)
+- [Methodology](https://whitethroated.com/methodology.md)
+- [Report archive](https://whitethroated.com/reports.md)
+- [Analytics](https://whitethroated.com/analytics.md)
+- [Tier 1 default-transport validation report](https://whitethroated.com/reports/tier1-default-2026-10-18.md)
+
+## Source material
+
+- [Tier 1 default-transport validation report](https://whitethroated.com/reports/tier1-default-2026-10-18/): Rendered report, including its socket-option erratum.
+- [Verbatim report](https://whitethroated.com/reports/benchmark-tier1-default-2026-10-18.md): Original report in Markdown.
+- [Raw measurement data](https://whitethroated.com/data/tier1-default-2026-10-18.json): Per-round measurement data.
+- [GitHub organization](https://github.com/whitethroated): Project repositories.
+
+Use the reports and raw data for exact benchmark claims. The site distinguishes measurements from goals and documents known limitations.

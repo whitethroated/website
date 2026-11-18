@@ -1,0 +1,6 @@
+name = "whitethroated-analytics"
+main = "analytics-worker.mjs"
+compatibility_date = "2026-11-18"
+
+# Add the D1 database binding and Worker route after creating the database.
+# See README.md for setup instructions.
