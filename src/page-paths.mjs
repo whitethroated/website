@@ -1,9 +1,8 @@
 // The static host serves these pages from directories behind their public URLs.
 export function isSlashlessPage(path) {
-  return path === '/analytics' || path === '/reports';
+  return path !== '/' && path.startsWith('/') && !path.endsWith('/') && !path.split('/').at(-1).includes('.');
 }
 
 export function publicPagePath(path) {
-  const slug = path.replace(/\/$/, '');
-  return isSlashlessPage(slug) ? slug : path;
+  return path.replace(/\/+$/, '') || '/';
 }

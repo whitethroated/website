@@ -37,7 +37,7 @@ test('returns unavailable when its database cannot be queried', async () => {
 
 test('serves slashless pages from the directory origin and redirects legacy links', async (t) => {
   const origin = t.mock.method(globalThis, 'fetch', async () => html());
-  for (const path of ['/analytics', '/reports']) {
+  for (const path of ['/analytics', '/reports', '/results', '/methodology', '/reports/tier1-default-2026-10-18']) {
     const legacy = await worker.fetch(request(path + '/?view=all'), {}, {});
     assert.equal(legacy.status, 308);
     assert.equal(legacy.headers.get('location'), request(path + '?view=all').url);

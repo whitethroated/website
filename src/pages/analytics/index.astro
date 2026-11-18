@@ -23,23 +23,23 @@ import Site from '../../layouts/Site.astro';
       <div class="analytics-periods" role="group" aria-label="Reading trend time range">
         <button type="button" data-period="24h" aria-pressed="false">24 hours</button><button type="button" data-period="7d" aria-pressed="false">7 days</button><button type="button" data-period="30d" aria-pressed="true">30 days</button><button type="button" data-period="60d" aria-pressed="false">60 days</button><button type="button" data-period="90d" aria-pressed="false">90 days</button><button type="button" data-period="year" aria-pressed="false">This year</button>
       </div>
-      <div class="analytics-panel analytics-chart"><svg id="reading-chart" viewBox="0 0 900 260" role="img" aria-label="Reading trend by date" preserveAspectRatio="none">
+      <div class="analytics-panel analytics-chart"><svg id="reading-chart" viewBox="0 0 900 260" role="img" aria-label="Reading trend by date. Use the arrow keys to explore intervals." aria-describedby="chart-message" preserveAspectRatio="none">
           <g class="loading-rows" aria-hidden="true" fill="var(--placeholder)">
             {[12, 65, 118, 171, 224].map(y => <g><rect x="8" y={y - 3} width="20" height="6" rx="3"/><rect x="38" y={y} width="852" height="1"/></g>)}
             <rect x="38" y="244" width="45" height="7" rx="3"/><rect x="845" y="244" width="45" height="7" rx="3"/>
-          </g></svg><p id="chart-message" class="analytics-muted">Awaiting trend data.</p></div>
+          </g></svg><p id="chart-message" class="analytics-muted" aria-live="polite">Awaiting trend data.</p></div>
     </section>
 
     <section class="analytics-section" aria-labelledby="weekly-title">
       <div class="analytics-heading"><h2 id="weekly-title">Last 30 days</h2><span class="analytics-muted">Grouped by week · UTC</span></div>
-      <div class="analytics-panel analytics-table-wrap"><table><thead><tr><th scope="col">Week</th><th scope="col">Total</th><th scope="col">Human</th><th scope="col">Agent</th></tr></thead><tbody class="loading-rows" aria-hidden="true">
+      <div class="analytics-panel analytics-table-wrap analytics-scroll" tabindex="0" role="region" aria-labelledby="weekly-title"><table><thead><tr><th scope="col">Week</th><th scope="col">Total</th><th scope="col">Human</th><th scope="col">Agent</th></tr></thead><tbody class="loading-rows" aria-hidden="true">
           {Array.from({ length: 5 }, () => <tr>{Array.from({ length: 4 }, () => <td><i></i></td>)}</tr>)}
         </tbody><tbody id="weekly-rows"><tr><td colspan="4">See the analytics API for current counts.</td></tr></tbody></table></div>
     </section>
 
     <section class="analytics-section" aria-labelledby="pages-title">
       <div class="analytics-heading"><h2 id="pages-title">By page</h2><span class="analytics-muted">All-time aggregate</span></div>
-      <div id="page-rows" class="analytics-panel">
+      <div id="page-rows" class="analytics-panel analytics-scroll" tabindex="0" role="region" aria-labelledby="pages-title">
         <div class="loading-rows" aria-hidden="true">
           {[1, 2, 3].map(() => <div class="analytics-page-row"><div class="analytics-row-top"><i></i><i></i></div><div class="analytics-bar"></div><i class="row-caption"></i></div>)}
         </div><p class="analytics-muted">Page reads will appear when analytics data is available.</p></div>
@@ -47,7 +47,7 @@ import Site from '../../layouts/Site.astro';
 
     <section class="analytics-section" aria-labelledby="bots-title">
       <div class="analytics-heading"><h2 id="bots-title">AI agents &amp; bots</h2><span class="analytics-muted">Markdown reads · all-time aggregate</span></div>
-      <div id="bot-rows" class="analytics-panel">
+      <div id="bot-rows" class="analytics-panel analytics-scroll" tabindex="0" role="region" aria-labelledby="bots-title">
         <div class="loading-rows" aria-hidden="true">
           {[1, 2].map(() => <div class="analytics-bot-row analytics-row-top"><i></i><i></i></div>)}
         </div><p class="analytics-muted">See the analytics API for current named-agent counts.</p></div>
@@ -86,8 +86,24 @@ import Site from '../../layouts/Site.astro';
   .analytics-periods button[aria-pressed="true"] { background: var(--wt-surface); }
   .analytics-periods button:focus-visible { outline: 2px solid var(--wt-link); outline-offset: 2px; }
   .analytics-chart svg { width: 100%; height: 17rem; display: block; overflow: visible; }
+  #reading-chart[tabindex] { cursor: crosshair; touch-action: pan-y pinch-zoom; user-select: none; }
+  #reading-chart:focus-visible { outline: 2px solid var(--wt-link); outline-offset: 3px; }
   .analytics-chart p { text-align: center; margin: .5rem 0 0; }
-  .analytics-table-wrap { overflow-x: auto; }
+  .analytics-scroll { scrollbar-width: none; }
+  .analytics-scroll::-webkit-scrollbar { display: none; }
+  .analytics-scroll:focus-visible { outline: 2px solid var(--wt-link); outline-offset: 3px; }
+  .analytics-scroll[data-overflow] {
+    mask-image:
+      linear-gradient(to bottom, transparent, black var(--fade-top, 0px),
+        black calc(100% - var(--fade-bottom, 0px)), transparent),
+      linear-gradient(to right, transparent, black var(--fade-left, 0px),
+        black calc(100% - var(--fade-right, 0px)), transparent);
+    mask-composite: intersect;
+  }
+  .analytics-scroll[data-overflow~="top"] { --fade-top: 1.25rem; }
+  .analytics-scroll[data-overflow~="bottom"] { --fade-bottom: 1.25rem; }
+  .analytics-scroll[data-overflow~="left"] { --fade-left: 1.25rem; }
+  .analytics-scroll[data-overflow~="right"] { --fade-right: 1.25rem; }
   table { width: 100%; border-collapse: collapse; text-align: left; font-size: .9rem; }
   table { table-layout: fixed; min-width: 32rem; }
   th:first-child { width: 49%; }

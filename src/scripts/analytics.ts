@@ -10,10 +10,28 @@ if (root) {
   const format = (n: number) => n.toLocaleString();
   const agent = (path: string) => path.toLowerCase().endsWith('.md');
   const normalized = (path: string) => path.toLowerCase() === '/index.md' ? '/' : agent(path) ? `${path.slice(0, -3)}/` : path;
-  const label = (path: string) => ({ '/': 'Homepage', '/results/': 'Results', '/methodology/': 'Methodology', '/reports': 'Reports', '/analytics': 'Analytics' }[path] || path);
+  const label = (path: string) => ({ '/': 'Homepage', '/results': 'Results', '/methodology': 'Methodology', '/reports': 'Reports', '/analytics': 'Analytics' }[path] || path);
   const make = (tag: string, className: string, content: string) => {
     const el = document.createElement(tag); el.className = className; el.textContent = content; return el;
   };
+  const scrollPanels = root.querySelectorAll<HTMLElement>('.analytics-scroll');
+  function updateScrollFade(panel: HTMLElement) {
+    const { scrollTop, scrollLeft, scrollHeight, scrollWidth, clientHeight, clientWidth } = panel;
+    const edges = [
+      scrollTop > 1 && 'top',
+      scrollHeight - clientHeight - scrollTop > 1 && 'bottom',
+      scrollLeft > 1 && 'left',
+      scrollWidth - clientWidth - scrollLeft > 1 && 'right',
+    ].filter(Boolean);
+    if (edges.length) panel.dataset.overflow = edges.join(' ');
+    else delete panel.dataset.overflow;
+  }
+  const scrollObserver = new ResizeObserver(() => scrollPanels.forEach(updateScrollFade));
+  for (const panel of scrollPanels) {
+    scrollObserver.observe(panel);
+    panel.addEventListener('scroll', () => updateScrollFade(panel), { passive: true });
+  }
+
   let data: Dataset | null = null;
   let period = '30d';
 
@@ -25,9 +43,32 @@ if (root) {
     return Math.floor(now.getTime() / interval) * interval - (buckets - 1) * interval;
   }
 
+  const svg = root.querySelector<SVGSVGElement>('#reading-chart')!;
+  const chartMessage = element('chart-message');
+  const plotStart = 38;
+  const plotWidth = 852;
+  let selectedTime: number | undefined;
+  let scrubTrend: ((position: number | string) => void) | undefined;
+
+  svg.addEventListener('pointerdown', (event) => {
+    if (!scrubTrend || !event.isPrimary || event.button !== 0 || event.pointerType === 'touch') return;
+    svg.setPointerCapture(event.pointerId);
+    scrubTrend(event.clientX);
+  });
+  svg.addEventListener('pointermove', (event) => {
+    if (svg.hasPointerCapture(event.pointerId)) scrubTrend?.(event.clientX);
+  });
+  svg.addEventListener('click', (event) => {
+    if (event.detail) scrubTrend?.(event.clientX);
+  });
+  svg.addEventListener('keydown', (event) => {
+    if (!scrubTrend || !['ArrowLeft', 'ArrowRight', 'Home', 'End', 'Escape'].includes(event.key)) return;
+    event.preventDefault();
+    scrubTrend(event.key);
+  });
+
   function drawTrend() {
     if (!data) return;
-    const svg = element('reading-chart') as unknown as SVGSVGElement;
     svg.replaceChildren();
     const now = new Date();
     const hourly = period === '24h';
@@ -49,13 +90,57 @@ if (root) {
     }
     for (const kind of ['human', 'agent'] as const) {
       const line = document.createElementNS(ns, 'polyline');
-      line.setAttribute('points', points.map((p, i) => `${38 + i * 852 / Math.max(1, points.length - 1)},${224 - p[kind] / max * 212}`).join(' '));
+      line.setAttribute('points', points.map((p, i) => `${plotStart + i * plotWidth / Math.max(1, points.length - 1)},${224 - p[kind] / max * 212}`).join(' '));
       line.setAttribute('fill', 'none'); line.setAttribute('stroke', kind === 'human' ? 'var(--human)' : 'var(--agent)'); line.setAttribute('stroke-width', '3'); line.setAttribute('vector-effect', 'non-scaling-stroke'); svg.append(line);
     }
     for (const [i, point] of [[0, points[0]], [points.length - 1, points[points.length - 1]]] as const) {
-      const text = document.createElementNS(ns, 'text'); text.setAttribute('x', String(38 + i * 852 / Math.max(1, points.length - 1))); text.setAttribute('y', '250'); text.setAttribute('text-anchor', i === 0 ? 'start' : 'end'); text.setAttribute('fill', 'var(--wt-text-secondary)'); text.setAttribute('font-size', '11'); text.textContent = new Date(point.time).toLocaleDateString(undefined, { month: 'short', day: 'numeric', timeZone: 'UTC' }); svg.append(text);
+      const text = document.createElementNS(ns, 'text'); text.setAttribute('x', String(plotStart + i * plotWidth / Math.max(1, points.length - 1))); text.setAttribute('y', '250'); text.setAttribute('text-anchor', i === 0 ? 'start' : 'end'); text.setAttribute('fill', 'var(--wt-text-secondary)'); text.setAttribute('font-size', '11'); text.textContent = new Date(point.time).toLocaleDateString(undefined, { month: 'short', day: 'numeric', timeZone: 'UTC' }); svg.append(text);
     }
-    element('chart-message').textContent = `${points.length} ${hourly ? 'hourly' : 'daily'} intervals · UTC`;
+    const summary = `${points.length} ${hourly ? 'hourly' : 'daily'} intervals · UTC`;
+    const marker = document.createElementNS(ns, 'line');
+    marker.setAttribute('y1', '12');
+    marker.setAttribute('y2', '224');
+    marker.setAttribute('stroke', 'var(--wt-text-secondary)');
+    marker.setAttribute('stroke-dasharray', '4 4');
+    marker.setAttribute('visibility', 'hidden');
+    svg.append(marker);
+
+    const formatter = new Intl.DateTimeFormat(undefined, {
+      month: 'short', day: 'numeric', hour: hourly ? 'numeric' : undefined, timeZone: 'UTC',
+    });
+    let selected = points.findIndex((point) => point.time === selectedTime);
+    const select = (index: number) => {
+      selected = index;
+      if (index < 0) {
+        selectedTime = undefined;
+        marker.setAttribute('visibility', 'hidden');
+        chartMessage.textContent = summary;
+        return;
+      }
+      const point = points[index];
+      selectedTime = point.time;
+      const x = String(plotStart + index * plotWidth / Math.max(1, points.length - 1));
+      marker.setAttribute('x1', x);
+      marker.setAttribute('x2', x);
+      marker.setAttribute('visibility', 'visible');
+      chartMessage.textContent = `${formatter.format(point.time)} UTC · Human ${format(point.human)} · Agent ${format(point.agent)}`;
+    };
+    scrubTrend = (position) => {
+      let index: number;
+      if (typeof position === 'number') {
+        const bounds = svg.getBoundingClientRect();
+        const x = (position - bounds.left) / bounds.width * svg.viewBox.baseVal.width;
+        index = Math.round((x - plotStart) / plotWidth * (points.length - 1));
+      } else {
+        if (position === 'Escape') return select(-1);
+        if (position === 'Home') index = 0;
+        else if (position === 'End' || selected === -1) index = points.length - 1;
+        else index = selected + (position === 'ArrowLeft' ? -1 : 1);
+      }
+      select(Math.max(0, Math.min(points.length - 1, index)));
+    };
+    svg.setAttribute('tabindex', '0');
+    select(selected);
   }
 
   function render() {
@@ -97,7 +182,7 @@ if (root) {
     if (!weeks.size) { const tr = document.createElement('tr'); const td = make('td', '', 'No reads recorded in the last 30 days.'); td.setAttribute('colspan', '4'); tr.append(td); body.append(tr); }
     drawTrend();
   }
-  root.querySelectorAll<HTMLButtonElement>('[data-period]').forEach((button) => button.addEventListener('click', () => { period = button.dataset.period!; root.querySelectorAll('[data-period]').forEach((b) => b.setAttribute('aria-pressed', String(b === button))); drawTrend(); }));
+  root.querySelectorAll<HTMLButtonElement>('[data-period]').forEach((button) => button.addEventListener('click', () => { period = button.dataset.period!; selectedTime = undefined; root.querySelectorAll('[data-period]').forEach((b) => b.setAttribute('aria-pressed', String(b === button))); drawTrend(); }));
   async function refresh() {
     try {
       const response = await fetch('/api/analytics', { cache: 'no-store' });
@@ -110,6 +195,7 @@ if (root) {
     } finally {
       delete root!.dataset.loading;
       root!.setAttribute('aria-busy', 'false');
+      scrollPanels.forEach(updateScrollFade);
     }
   }
   root.setAttribute('aria-busy', 'true');

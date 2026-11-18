@@ -4,5 +4,6 @@ import { defineConfig } from 'astro/config';
 // emits dist/ and `npm run preview` serves it locally.
 export default defineConfig({
   output: 'static',
+  trailingSlash: 'ignore',
   site: 'https://whitethroated.com',
 });
