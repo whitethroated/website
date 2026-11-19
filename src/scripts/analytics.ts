@@ -51,20 +51,29 @@ if (root) {
   let selectedTime: number | undefined;
   let scrubTrend: ((position: number | string) => void) | undefined;
 
-  svg.addEventListener('pointerdown', (event) => {
-    if (!scrubTrend || !event.isPrimary || event.button !== 0 || event.pointerType === 'touch') return;
-    svg.setPointerCapture(event.pointerId);
+  let mousePreview = false;
+  const previewTrend = (event: PointerEvent) => {
+    if (event.pointerType !== 'mouse' || !scrubTrend) return;
+    mousePreview = true;
     scrubTrend(event.clientX);
-  });
-  svg.addEventListener('pointermove', (event) => {
-    if (svg.hasPointerCapture(event.pointerId)) scrubTrend?.(event.clientX);
+  };
+  svg.addEventListener('pointerenter', previewTrend);
+  svg.addEventListener('pointermove', previewTrend);
+  svg.addEventListener('pointerleave', (event) => {
+    if (event.pointerType !== 'mouse' || !mousePreview) return;
+    mousePreview = false;
+    scrubTrend?.('Escape');
   });
   svg.addEventListener('click', (event) => {
-    if (event.detail) scrubTrend?.(event.clientX);
+    if (event.detail && !(event instanceof PointerEvent && event.pointerType === 'mouse')) {
+      mousePreview = false;
+      scrubTrend?.(event.clientX);
+    }
   });
   svg.addEventListener('keydown', (event) => {
     if (!scrubTrend || !['ArrowLeft', 'ArrowRight', 'Home', 'End', 'Escape'].includes(event.key)) return;
     event.preventDefault();
+    mousePreview = false;
     scrubTrend(event.key);
   });
 
@@ -194,7 +203,8 @@ if (root) {
         else if (position === 'End' || selected === -1) index = points.length - 1;
         else index = selected + (position === 'ArrowLeft' ? -1 : 1);
       }
-      select(Math.max(0, Math.min(points.length - 1, index)));
+      const clamped = Math.max(0, Math.min(points.length - 1, index));
+      if (clamped !== selected) select(clamped);
     };
     svg.setAttribute('tabindex', '0');
     select(selected);
